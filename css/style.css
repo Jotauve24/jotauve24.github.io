@@ -33,6 +33,13 @@ body {
     font-weight: 500;
     letter-spacing: 2px;
     color: white;
+    text-decoration: none;   /* NUEVO */
+    cursor: pointer;         /* NUEVO */
+}
+.logo:hover {
+    color: white;
+    transform: scale(1.03);
+    transition: 0.3s ease;
 }
 
 .logo span {
@@ -186,6 +193,7 @@ body {
     align-items: center;
     font-size: 34px;
     color: white;
+    text-decoration: none;
 }
 
 /* RESPONSIVE */
@@ -215,4 +223,28 @@ body {
     .botones {
         flex-direction: column;
     }
+}
+html {
+    scroll-behavior: smooth;
+}
+
+.seccion {
+    min-height: 100vh;
+    padding: 130px 70px;
+    background: #020617;
+    color: white;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.seccion h2 {
+    font-size: 48px;
+    color: #8b5cf6;
+    margin-bottom: 20px;
+}
+
+.seccion p {
+    font-size: 22px;
+    line-height: 1.7;
+    max-width: 850px;
+    color: #d6d6df;
 }

@@ -5,26 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jair Antonio Valdes Tejeira</title>
 
-   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <header class="navbar">
-        <div class="logo">JOTAU<span>VE</span></div>
+        <a href="#inicio" class="logo">JOTAU<span>VE</span></a>
 
         <nav>
-            <a href="#" class="active">Inicio</a>
-            <a href="#">Perfil</a>
-            <a href="#">Proyectos</a>
-            <a href="#">Recursos</a>
+            <a href="#inicio" class="active">Inicio</a>
+            <a href="#perfil">Perfil</a>
+            <a href="#proyectos">Proyectos</a>
+            <a href="#recursos">Recursos</a>
         </nav>
 
-        <a href="#" class="btn-contacto">Contáctame</a>
+        <a href="#perfil" class="btn-contacto">Contáctame</a>
     </header>
 
-    <section class="hero">
+    <section class="hero" id="inicio">
         <div class="hero-content">
             <h3>ESPECIALISTA EN <span>INFORMÁTICA</span> & TECNOLOGÍA</h3>
 
@@ -37,12 +36,35 @@
             </p>
 
             <div class="botones">
-                <a href="#" class="btn-principal">CONÓCEME</a>
+                <a href="#perfil" class="btn-principal">CONÓCEME</a>
                 <a href="#" class="btn-secundario">DESCARGAR CV</a>
             </div>
         </div>
 
-        <div class="scroll">↓</div>
+        <a href="#perfil" class="scroll">↓</a>
+    </section>
+
+    <section id="perfil" class="seccion">
+        <h2>Perfil</h2>
+        <p>
+            Espacio destinado a presentar mi perfil profesional como especialista
+            en informática y tecnología.
+        </p>
+    </section>
+
+    <section id="proyectos" class="seccion">
+        <h2>Proyectos</h2>
+        <p>
+            En esta sección se presentarán proyectos relacionados con tecnología,
+            educación digital e innovación.
+        </p>
+    </section>
+
+    <section id="recursos" class="seccion">
+        <h2>Recursos</h2>
+        <p>
+            Espacio para compartir materiales, herramientas y recursos digitales.
+        </p>
     </section>
 
     <script src="js/script.js"></script>
