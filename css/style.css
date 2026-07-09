@@ -1,0 +1,218 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #020617;
+    color: white;
+}
+
+/* NAVBAR */
+
+.navbar {
+    width: 100%;
+    height: 85px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 0 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(2, 6, 23, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: white;
+}
+
+.logo span {
+    color: #8b5cf6;
+    font-weight: 700;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 42px;
+}
+
+.navbar nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    position: relative;
+    transition: 0.3s;
+}
+
+.navbar nav a.active,
+.navbar nav a:hover {
+    color: #9b5cff;
+}
+
+.navbar nav a.active::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background: #7c3cff;
+    left: 0;
+    bottom: -29px;
+}
+
+.btn-contacto {
+    color: white;
+    text-decoration: none;
+    border: 1px solid #7c3cff;
+    padding: 11px 26px;
+    border-radius: 35px;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.btn-contacto:hover {
+    background: #7c3cff;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 100vh;
+    background-image:
+        linear-gradient(90deg, rgba(2,6,23,0.96) 0%, rgba(2,6,23,0.82) 35%, rgba(2,6,23,0.25) 100%),
+        url("../img/portada.png");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    padding: 120px 50px 40px;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 780px;
+}
+
+.hero-content h3 {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    margin-bottom: 18px;
+}
+
+.hero-content h3 span {
+    color: #00d4ff;
+}
+
+.hero-content h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 74px;
+    line-height: 1.08;
+    font-weight: 700;
+    letter-spacing: -2px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+}
+
+.hero-content p {
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: #d6d6df;
+    max-width: 760px;
+}
+
+.hero-content p span {
+    color: #8b5cf6;
+    font-weight: 500;
+}
+
+.botones {
+    display: flex;
+    gap: 22px;
+    margin-top: 35px;
+}
+
+.btn-principal,
+.btn-secundario {
+    text-decoration: none;
+    padding: 16px 34px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-principal {
+    background: linear-gradient(135deg, #7c3cff, #4f46e5);
+    color: white;
+    box-shadow: 0 15px 35px rgba(124, 60, 255, 0.35);
+}
+
+.btn-principal:hover {
+    transform: translateY(-5px);
+}
+
+.btn-secundario {
+    border: 1px solid #00bfff;
+    color: white;
+}
+
+.btn-secundario:hover {
+    background: rgba(0,191,255,0.15);
+    transform: translateY(-5px);
+}
+
+.scroll {
+    position: absolute;
+    bottom: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 58px;
+    height: 58px;
+    border: 2px solid #7c3cff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+    color: white;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+    .navbar {
+        padding: 0 25px;
+    }
+
+    .navbar nav,
+    .btn-contacto {
+        display: none;
+    }
+
+    .hero {
+        padding: 120px 30px 40px;
+    }
+
+    .hero-content h1 {
+        font-size: 48px;
+    }
+
+    .hero-content p {
+        font-size: 18px;
+    }
+
+    .botones {
+        flex-direction: column;
+    }
+}
