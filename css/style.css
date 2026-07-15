@@ -248,3 +248,515 @@ html {
     max-width: 850px;
     color: #d6d6df;
 }
+/* =================================
+   SECCIÓN ESPECIFICACIONES
+================================= */
+
+.especificaciones {
+    min-height: 100vh;
+    padding: 130px 7% 90px;
+    background:
+        radial-gradient(circle at 50% 30%, rgba(99, 58, 219, 0.15), transparent 35%),
+        linear-gradient(180deg, #030617 0%, #05091d 100%);
+}
+
+.encabezado-especificaciones {
+    max-width: 950px;
+    margin: 0 auto 55px;
+    text-align: center;
+}
+
+.etiqueta-especificaciones {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: #a56cff;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.encabezado-especificaciones h2 {
+    color: white;
+    font-size: 58px;
+    line-height: 1.15;
+    margin-bottom: 15px;
+}
+
+.linea-brillante {
+    width: 150px;
+    height: 2px;
+    margin: 0 auto 22px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #8b5cf6,
+        #d35cff,
+        #8b5cf6,
+        transparent
+    );
+    box-shadow: 0 0 16px rgba(139, 92, 246, 0.9);
+}
+
+.encabezado-especificaciones p {
+    max-width: 760px;
+    margin: 0 auto;
+    color: #d5d7e4;
+    font-size: 20px;
+    line-height: 1.7;
+}
+
+.grid-especificaciones {
+    max-width: 1320px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.card-especificacion {
+    position: relative;
+    min-height: 295px;
+    padding: 28px 30px 30px;
+    border: 1px solid rgba(139, 92, 246, 0.65);
+    border-radius: 20px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(22, 25, 54, 0.9),
+            rgba(10, 13, 35, 0.82)
+        );
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.03),
+        0 18px 45px rgba(0,0,0,0.32);
+    backdrop-filter: blur(14px);
+    overflow: hidden;
+    transition: 0.35s ease;
+}
+
+.card-especificacion::before {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    right: -60px;
+    bottom: -70px;
+    border-radius: 50%;
+    background: rgba(111, 66, 255, 0.14);
+    filter: blur(5px);
+}
+
+.card-especificacion:hover {
+    transform: translateY(-8px);
+    border-color: #b56cff;
+    box-shadow:
+        0 20px 55px rgba(80, 46, 185, 0.28),
+        0 0 24px rgba(139, 92, 246, 0.18);
+}
+
+.icono-box {
+    width: 78px;
+    height: 78px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(139, 92, 246, 0.72);
+    border-radius: 20px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(61, 40, 132, 0.72),
+            rgba(29, 26, 77, 0.72)
+        );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a66cff;
+    font-size: 28px;
+    font-weight: 700;
+    box-shadow: inset 0 0 20px rgba(139, 92, 246, 0.1);
+}
+
+.card-especificacion h3 {
+    color: white;
+    font-size: 23px;
+    margin-bottom: 14px;
+}
+
+.linea-card {
+    width: 34px;
+    height: 3px;
+    margin-bottom: 15px;
+    border-radius: 20px;
+    background: #8b5cf6;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.75);
+}
+
+.card-especificacion p {
+    max-width: 100%;
+    color: #c9ccda;
+    font-size: 17px;
+    line-height: 1.65;
+}
+
+.flecha-card {
+    position: absolute;
+    right: 24px;
+    bottom: 22px;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(139, 92, 246, 0.5);
+    border-radius: 50%;
+    background: rgba(87, 48, 183, 0.28);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d2b8ff;
+    text-decoration: none;
+    font-size: 23px;
+    transition: 0.3s ease;
+}
+
+.flecha-card:hover {
+    background: #7c3cff;
+    color: white;
+    transform: translateX(4px);
+}
+
+/* TABLET */
+
+@media (max-width: 1050px) {
+    .grid-especificaciones {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* CELULAR */
+
+@media (max-width: 700px) {
+    .especificaciones {
+        padding: 110px 22px 70px;
+    }
+
+    .encabezado-especificaciones h2 {
+        font-size: 40px;
+    }
+
+    .encabezado-especificaciones p {
+        font-size: 17px;
+    }
+
+    .grid-especificaciones {
+        grid-template-columns: 1fr;
+    }
+
+    .card-especificacion {
+        min-height: 285px;
+    }
+}
+/* =================================
+   SECCIÓN PERFIL
+================================= */
+
+.perfil {
+    min-height: 100vh;
+    padding: 130px 7% 90px;
+    background:
+        radial-gradient(
+            circle at 70% 35%,
+            rgba(124, 60, 255, 0.12),
+            transparent 30%
+        ),
+        linear-gradient(180deg, #020617 0%, #05081b 100%);
+}
+
+.perfil-contenedor {
+    max-width: 1350px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.35fr 0.65fr;
+    gap: 70px;
+    align-items: center;
+}
+
+.perfil-etiqueta {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #a66cff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+
+.perfil-informacion h2 {
+    max-width: 760px;
+    color: white;
+    font-size: 54px;
+    line-height: 1.15;
+    margin-bottom: 20px;
+}
+
+.perfil-linea {
+    width: 95px;
+    height: 3px;
+    margin-bottom: 28px;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #7c3cff, #c65cff);
+    box-shadow: 0 0 18px rgba(139, 92, 246, 0.85);
+}
+
+.perfil-descripcion {
+    max-width: 780px;
+    margin-bottom: 18px;
+    color: #d0d3df;
+    font-size: 18px;
+    line-height: 1.85;
+}
+
+.perfil-frase {
+    position: relative;
+    max-width: 760px;
+    margin-top: 32px;
+    padding: 28px 32px 28px 76px;
+    border: 1px solid rgba(139, 92, 246, 0.55);
+    border-radius: 18px;
+    background: rgba(15, 18, 46, 0.72);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+}
+
+.perfil-frase .comillas {
+    position: absolute;
+    top: 10px;
+    left: 25px;
+    color: #8b5cf6;
+    font-size: 72px;
+    font-family: Georgia, serif;
+    line-height: 1;
+}
+
+.perfil-frase p {
+    color: white;
+    font-size: 21px;
+    font-style: italic;
+    line-height: 1.65;
+}
+
+.perfil-visual {
+    position: relative;
+    max-width: 390px;
+    margin: 0 auto;
+    padding: 14px;
+    border: 1px solid rgba(174, 100, 255, 0.8);
+    border-radius: 28px;
+    background: rgba(14, 17, 48, 0.72);
+    box-shadow:
+        0 25px 65px rgba(0, 0, 0, 0.42),
+        0 0 35px rgba(124, 60, 255, 0.2);
+}
+
+.perfil-foto {
+    height: 430px;
+    overflow: hidden;
+    border-radius: 20px;
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(124, 60, 255, 0.35),
+            transparent 55%
+        ),
+        #090d29;
+}
+
+.perfil-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+}
+
+.perfil-identidad {
+    padding: 24px 20px 18px;
+    text-align: center;
+}
+
+.perfil-identidad h3 {
+    color: white;
+    font-size: 23px;
+    margin-bottom: 7px;
+}
+
+.perfil-identidad p {
+    color: #a66cff;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.perfil-fortalezas {
+    max-width: 1350px;
+    margin: 65px auto 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.fortaleza {
+    min-height: 195px;
+    padding: 25px;
+    display: flex;
+    gap: 18px;
+    border: 1px solid rgba(139, 92, 246, 0.42);
+    border-radius: 18px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20, 23, 52, 0.9),
+            rgba(8, 12, 34, 0.85)
+        );
+    transition: 0.35s ease;
+}
+
+.fortaleza:hover {
+    transform: translateY(-7px);
+    border-color: #a66cff;
+    box-shadow: 0 20px 45px rgba(80, 45, 185, 0.2);
+}
+
+.fortaleza-icono {
+    flex-shrink: 0;
+    width: 58px;
+    height: 58px;
+    border: 1px solid rgba(139, 92, 246, 0.7);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a66cff;
+    background: rgba(89, 54, 173, 0.25);
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.fortaleza h3 {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.fortaleza p {
+    color: #c7cad8;
+    font-size: 15px;
+    line-height: 1.65;
+}
+
+.perfil-proposito {
+    position: relative;
+    max-width: 1350px;
+    margin: 25px auto 0;
+    padding: 32px 45px 30px 105px;
+    border: 1px solid rgba(139, 92, 246, 0.42);
+    border-radius: 18px;
+    background:
+        radial-gradient(
+            circle at 85% 50%,
+            rgba(125, 57, 255, 0.17),
+            transparent 30%
+        ),
+        rgba(12, 16, 44, 0.78);
+}
+
+.comillas-proposito {
+    position: absolute;
+    top: 12px;
+    left: 36px;
+    color: #8b5cf6;
+    font-size: 82px;
+    font-family: Georgia, serif;
+}
+
+.perfil-proposito p {
+    max-width: 950px;
+    color: white;
+    font-size: 20px;
+    line-height: 1.65;
+}
+
+.valores {
+    margin-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.valores span {
+    padding: 9px 16px;
+    border: 1px solid rgba(139, 92, 246, 0.45);
+    border-radius: 25px;
+    color: #d9c9ff;
+    background: rgba(77, 42, 157, 0.2);
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+/* TABLET */
+
+@media (max-width: 1050px) {
+    .perfil-contenedor {
+        grid-template-columns: 1fr;
+    }
+
+    .perfil-visual {
+        width: 100%;
+    }
+
+    .perfil-fortalezas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* CELULAR */
+
+@media (max-width: 700px) {
+    .perfil {
+        padding: 110px 22px 70px;
+    }
+
+    .perfil-informacion h2 {
+        font-size: 39px;
+    }
+
+    .perfil-descripcion {
+        font-size: 16px;
+    }
+
+    .perfil-frase {
+        padding: 65px 22px 24px;
+    }
+
+    .perfil-frase .comillas {
+        top: 10px;
+        left: 22px;
+    }
+
+    .perfil-frase p {
+        font-size: 18px;
+    }
+
+    .perfil-foto {
+        height: 390px;
+    }
+
+    .perfil-fortalezas {
+        grid-template-columns: 1fr;
+    }
+
+    .perfil-proposito {
+        padding: 72px 24px 28px;
+    }
+
+    .comillas-proposito {
+        top: 5px;
+        left: 22px;
+    }
+
+    .perfil-proposito p {
+        font-size: 17px;
+    }
+}
