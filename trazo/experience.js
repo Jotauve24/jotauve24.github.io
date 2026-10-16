@@ -46,6 +46,20 @@
     sync();
   });
   openButton.addEventListener('click', () => docButton.click());
+  // Returning to Inicio must never silently replace an unsigned draft.
+  $('dropzone').addEventListener('click', event => {
+    if (!openDocument || !visitingHome) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    docButton.click(); // Original engine prompts about unsaved signatures.
+  }, true);
+  $('dropzone').addEventListener('drop', event => {
+    if (!openDocument || !visitingHome) return;
+    if (confirm('Al cargar otro PDF se perderán las firmas que no hayas descargado. ¿Continuar?')) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }, true);
+
   closeButton.addEventListener('click', () => {
     if (!confirm('¿Cerrar este documento? Las firmas que no hayas descargado se perderán.')) return;
     // Completely reset in-memory PDF, password and signature data.
