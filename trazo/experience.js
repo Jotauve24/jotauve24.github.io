@@ -61,7 +61,7 @@
     const current = Math.min(pages.length-1,Math.max(0,(parseInt(text.match(/Página\s+(\d+)/i)?.[1] || '1',10)-1)));
     pages[Math.min(pages.length-1,Math.max(0,current+direction))].scrollIntoView({behavior:'smooth',block:'start'});
   }
-  const levels=[.75,.9,1,1.25,1.5];
+  const levels=[.5,.75,.9,1,1.25,1.5];
   function zoomBy(delta){
     const sel=$('zoomSelect');
     const current=levels.indexOf(Number(sel.value));
