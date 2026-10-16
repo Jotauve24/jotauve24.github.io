@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f7f8fc">
   <meta name="description" content="Firma tus PDF de forma sencilla y privada, directamente desde tu navegador.">
   <title>Trazo — Firma tus PDF</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
   <header class="topbar">
@@ -34,7 +34,7 @@
           <h2>Arrastra tu PDF aquí</h2>
           <p>o selecciona un archivo de tu dispositivo</p>
           <button class="button button-primary upload-button" id="selectFileBtn" type="button"><svg class="icon" viewBox="0 0 24 24"><path d="M12 16V4m0 0-4 4m4-4 4 4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg> Seleccionar PDF</button>
-          <span class="upload-note">Solo archivos PDF · Hasta 50 MB · Tus documentos no se envían a nuestro servidor</span>
+          <span class="upload-note">PDF (también con contraseña) · Hasta 50 MB · Archivos procesados en tu navegador</span>
         </div>
         <div class="steps">
           <div class="step"><span class="step-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9m-7-7 7 7m-7-7v7h7"/></svg></span><div><strong>01. Sube</strong><span>Selecciona tu documento</span></div></div>
@@ -53,7 +53,7 @@
           <div class="panel-heading">DOCUMENTO</div>
           <div class="document-info">
             <span class="doc-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9m-7-7 7 7m-7-7v7h7"/></svg></span>
-            <div class="document-text"><strong id="fileName">documento.pdf</strong><span id="fileInfo">1 página</span></div>
+            <div class="document-text"><strong id="fileName">documento.pdf</strong><span id="fileInfo">1 página</span><span class="protection-status hidden" id="protectionStatus"></span></div>
           </div>
         </div>
         <div class="panel-section signatures-section">
@@ -96,11 +96,37 @@
     </div>
   </div>
   <div class="modal-backdrop hidden" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle"><div class="help-window"><button type="button" id="closeHelpBtn" class="icon-button help-close" aria-label="Cerrar"><svg class="icon" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></svg></button><span class="modal-eyebrow">GUÍA RÁPIDA</span><h2 id="helpTitle">Firmar es así de sencillo</h2><ol class="help-list"><li><strong>Carga un archivo PDF.</strong><span>Arrástralo a la página o selecciónalo de tu equipo.</span></li><li><strong>Crea una firma.</strong><span>Dibújala, escríbela o sube una imagen.</span></li><li><strong>Colócala donde quieras.</strong><span>Muévela con el ratón o el dedo y cambia su tamaño.</span></li><li><strong>Descarga el resultado.</strong><span>La firma visible se incorpora al PDF final.</span></li></ol><p class="help-disclaimer">No se añade firma digital criptográfica ni certificado de identidad. Evita modificar documentos que ya tengan firmas digitales verificables, porque la edición puede invalidarlas.</p><button class="button button-primary button-full" id="gotItBtn">Entendido</button></div></div>
+
+  <!-- Desbloqueo de PDFs cifrados: la contraseña nunca se almacena ni se envía -->
+  <div class="modal-backdrop hidden" id="passwordModal" role="dialog" aria-modal="true" aria-labelledby="passwordModalTitle">
+    <form class="secure-dialog" id="passwordForm" autocomplete="off">
+      <div class="secure-dialog-icon" aria-hidden="true">🔐</div>
+      <span class="modal-eyebrow">DOCUMENTO PROTEGIDO</span>
+      <h2 id="passwordModalTitle">Este PDF necesita una contraseña</h2>
+      <p>Introduce la contraseña para abrir el documento y poder firmarlo. Se utilizará únicamente en este navegador.</p>
+      <label class="secure-label" for="pdfPassword">Contraseña del PDF</label>
+      <div class="secure-password-row"><input id="pdfPassword" type="password" autocomplete="off" required placeholder="Contraseña del documento"><button type="button" class="show-password-btn" id="togglePdfPassword" aria-label="Mostrar contraseña">Mostrar</button></div>
+      <p class="secure-error hidden" id="passwordError" role="alert">La contraseña no es correcta. Inténtalo nuevamente.</p>
+      <label class="secure-authorization"><input type="checkbox" id="passwordAuthorized" required> Confirmo que tengo autorización para firmar este documento.</label>
+      <div class="secure-actions"><button type="button" class="button button-outline" id="cancelPasswordBtn">Cancelar</button><button type="submit" class="button button-primary">Abrir PDF</button></div>
+    </form>
+  </div>
+  <div class="modal-backdrop hidden" id="fallbackModal" role="dialog" aria-modal="true" aria-labelledby="fallbackTitle">
+    <div class="secure-dialog">
+      <div class="secure-dialog-icon" aria-hidden="true">📄</div>
+      <span class="modal-eyebrow">PDF CON RESTRICCIONES</span>
+      <h2 id="fallbackTitle">Podemos crear una copia visual</h2>
+      <p>El documento se puede ver, pero no se puede modificar directamente con el motor PDF disponible.</p>
+      <p class="secure-warning"><strong>Importante:</strong> la copia conserva el aspecto de cada página, pero el texto deja de ser seleccionable y pueden perderse enlaces, formularios, marcadores y firmas digitales anteriores. La copia no mantiene la contraseña original.</p>
+      <label class="secure-authorization"><input type="checkbox" id="fallbackAuthorized"> Confirmo que tengo autorización para firmar y convertir este PDF.</label>
+      <div class="secure-actions"><button type="button" class="button button-outline" id="cancelFallbackBtn">Cancelar</button><button type="button" class="button button-primary" id="acceptFallbackBtn" disabled>Continuar con copia visual</button></div>
+    </div>
+  </div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <div id="loadingOverlay" class="loading-overlay hidden" aria-live="polite"><div class="loading-card"><div class="spinner"></div><strong id="loadingTitle">Preparando documento…</strong><span id="loadingDetail">Un momento</span></div></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=2"></script>
 </body>
 </html>
