@@ -224,8 +224,8 @@
       state.placements = [];
       state.selectedId = null;
       state.activePage = 0;
-      state.zoom = 1;
-      $('zoomSelect').value = '1';
+      state.zoom = window.innerWidth <= 640 ? 0.5 : window.innerWidth <= 870 ? 0.75 : 1;
+      $('zoomSelect').value = String(state.zoom);
       $('landing').classList.add('hidden');
       $('editor').classList.remove('hidden');
       $('newDocBtn').classList.remove('hidden');
