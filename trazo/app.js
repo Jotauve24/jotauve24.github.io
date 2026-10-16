@@ -233,7 +233,7 @@
       $('fileInfo').textContent = `${pdf.numPages} ${pdf.numPages === 1 ? 'página' : 'páginas'} · ${formatBytes(file.size)}`;
       const status = $('protectionStatus');
       status.classList.toggle('hidden', !protectedPdf);
-      status.textContent = exportMode === 'visual' ? '🔒 PDF protegido · copia visual al descargar' : '🔓 PDF protegido abierto para firmar';
+      status.textContent = exportMode === 'visual' ? '🔒 PDF protegido · copia visual sin contraseña al descargar' : '🔓 PDF protegido · descarga sin contraseña original';
       updateSignatureLibrary();
       updateSelectionPanel();
       updateCount();
