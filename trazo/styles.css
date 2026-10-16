@@ -9,3 +9,22 @@
 /* El visor debe tener su propio scroll: no permitir que todas las páginas agranden la fila del editor. */
 @media(min-width:871px){.editor{grid-template-rows:minmax(0,1fr)}.left-panel,.center-panel,.right-panel,.pdf-workspace{min-height:0}}
 @media(min-width:641px) and (max-width:870px){.center-panel,.pdf-workspace{min-height:0}}
+
+/* Trazo 2: diálogos de apertura segura */
+.secure-dialog{display:flex;flex-direction:column;gap:13px;background:#fff;color:var(--ink);width:min(460px,calc(100vw - 28px));max-height:calc(100dvh - 28px);overflow:auto;padding:clamp(20px,4vw,32px);border-radius:22px;box-shadow:0 24px 90px #1b164c44}
+.secure-dialog-icon{font-size:30px;background:#f1edff;width:58px;height:58px;display:grid;place-items:center;border-radius:18px}
+.secure-dialog h2{margin:0;font-size:clamp(21px,4vw,26px);line-height:1.2;letter-spacing:-.5px}
+.secure-dialog p{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
+.secure-dialog .secure-label{font-size:13px;font-weight:750;margin-top:7px}
+.secure-password-row{display:flex;align-items:center;border:1px solid #dfe2eb;border-radius:13px;min-height:46px;overflow:hidden}
+.secure-password-row:focus-within{border-color:#7951e8;box-shadow:0 0 0 3px #7951e81c}
+.secure-password-row input{min-width:0;flex:1;width:100%;padding:12px;border:0;outline:none;background:transparent}
+.show-password-btn{background:transparent;border:0;color:var(--purple);font-size:12px;font-weight:750;padding:8px 12px}
+.secure-dialog .secure-error{font-size:13px;color:#be3650;font-weight:650}
+.secure-authorization{display:flex;gap:10px;align-items:flex-start;line-height:1.4;color:#45516d;font-size:13px;cursor:pointer}
+.secure-authorization input{margin:2px 0 0;width:16px;height:16px;flex:none;accent-color:var(--purple)}
+.secure-dialog .secure-warning{border:1px solid #f0dfab;background:#fff9e9;color:#6b5417;padding:13px;border-radius:11px}
+.secure-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:8px}
+.secure-actions .button{min-height:43px;font-size:13px}
+.protection-status{display:inline-flex;align-items:center;max-width:100%;font-size:11px;font-weight:750;line-height:1.35;color:#7951e8!important;margin-top:4px}
+@media(max-width:500px){.secure-actions .button{flex:1}.secure-dialog{padding:22px}}
