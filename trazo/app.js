@@ -58,6 +58,125 @@
   document.addEventListener('dragover', (e) => { if ([...e.dataTransfer?.types ?? []].includes('Files')) e.preventDefault(); });
   document.addEventListener('drop', (e) => { if (e.target.closest('#dropzone')) return; e.preventDefault(); });
 
+  // PDF.js abre PDFs cifrados con una contraseña válida. pdf-lib no admite
+  // cifrado: QPDF/WASM hace una copia descifrada en memoria para conservar vectores.
+  // Si QPDF no está disponible, una copia visual es el último recurso, previo aviso.
+  const WASM_QPDF_URL = 'https://cdn.jsdelivr.net/npm/qpdf-wasm-esm-embedded@1.1.1/qpdf.mjs';
+  let qpdfPromise = null;
+  function pauseLoaderForDialog(showDialog) {
+    $('loadingOverlay').classList.toggle('hidden', showDialog);
+  }
+  function securePrompt(modalId, submitId, cancelId, getValue) {
+    return new Promise(resolve => {
+      const modal = $(modalId);
+      const cancel = $(cancelId);
+      const submit = $(submitId);
+      const submitEventName = submit.tagName === 'FORM' ? 'submit' : 'click';
+      let done = false;
+      const finish = value => {
+        if (done) return;
+        done = true;
+        modal.classList.add('hidden');
+        pauseLoaderForDialog(false);
+        cancel.removeEventListener('click', onCancel);
+        submit.removeEventListener(submitEventName, onSubmit);
+        modal.removeEventListener('click', onBackdrop);
+        document.removeEventListener('keydown', onEscape, true);
+        resolve(value);
+      };
+      const onCancel = () => finish(null);
+      const onSubmit = event => {
+        event.preventDefault();
+        const value = getValue();
+        if (value !== null) finish(value);
+      };
+      const onBackdrop = event => { if (event.target === modal) finish(null); };
+      const onEscape = event => { if (event.key === 'Escape') { event.preventDefault(); event.stopImmediatePropagation(); finish(null); } };
+      pauseLoaderForDialog(true);
+      modal.classList.remove('hidden');
+      cancel.addEventListener('click', onCancel);
+      submit.addEventListener(submitEventName, onSubmit);
+      modal.addEventListener('click', onBackdrop);
+      document.addEventListener('keydown', onEscape, true);
+      const focusTarget = modal.querySelector('input:not([type=checkbox])') || submit;
+      focusTarget.focus();
+    });
+  }
+  async function askPdfPassword(wrongPassword = false) {
+    $('pdfPassword').value = '';
+    $('pdfPassword').type = 'password';
+    $('togglePdfPassword').textContent = 'Mostrar';
+    $('passwordAuthorized').checked = false;
+    $('passwordError').classList.toggle('hidden', !wrongPassword);
+    const response = await securePrompt('passwordModal', 'passwordForm', 'cancelPasswordBtn', () => {
+      if (!$('passwordAuthorized').checked || !$('pdfPassword').value) return null;
+      return $('pdfPassword').value;
+    });
+    $('pdfPassword').value = '';
+    return response;
+  }
+  $('togglePdfPassword').addEventListener('click', () => {
+    const input = $('pdfPassword');
+    input.type = input.type === 'password' ? 'text' : 'password';
+    $('togglePdfPassword').textContent = input.type === 'password' ? 'Mostrar' : 'Ocultar';
+  });
+  async function authorizeVisualCopy() {
+    $('fallbackAuthorized').checked = false;
+    $('acceptFallbackBtn').disabled = true;
+    $('fallbackAuthorized').onchange = () => { $('acceptFallbackBtn').disabled = !$('fallbackAuthorized').checked; };
+    const response = await securePrompt('fallbackModal', 'acceptFallbackBtn', 'cancelFallbackBtn', () => $('fallbackAuthorized').checked ? true : null);
+    return response === true;
+  }
+  function isPdfPasswordError(err) {
+    return err?.name === 'PasswordException' || (err?.code === 1 || err?.code === 2) && /password|contraseña/i.test(String(err?.message || ''));
+  }
+  function isPdfEncryptedError(err) {
+    return err?.name === 'EncryptedPDFError' || /encrypted|cifrad|password/i.test(String(err?.message || ''));
+  }
+  async function loadPdfWithPassword(bytes) {
+    let password = '';
+    let requiredPassword = false;
+    let wrong = false;
+    for (let attempt = 0; attempt < 6; attempt++) {
+      let task = null;
+      try {
+        task = pdfjsLib.getDocument({ data: bytes.slice(), useSystemFonts: true, ...(password ? {password} : {}) });
+        const pdf = await task.promise;
+        return { pdf, password, requiredPassword };
+      } catch (err) {
+        if (task) await task.destroy().catch(() => {});
+        if (!isPdfPasswordError(err)) throw err;
+        requiredPassword = true;
+        const enteredPassword = await askPdfPassword(wrong);
+        if (enteredPassword === null) throw new Error('TRAZO_CANCELLED');
+        password = enteredPassword;
+        wrong = true;
+        $('loadingDetail').textContent = 'Desbloqueando el documento';
+      } finally {
+        // La contraseña de cada intento vive solo en memoria mientras se abre el PDF.
+      }
+    }
+    throw new Error('TRAZO_MAX_PASSWORD_ATTEMPTS');
+  }
+  async function decryptWithQpdf(sourceBytes, password) {
+    if (!qpdfPromise) {
+      qpdfPromise = import(WASM_QPDF_URL).then(m => m.default({ print: () => {}, printErr: line => console.debug('[QPDF]', line) }));
+    }
+    const qpdf = await qpdfPromise;
+    const id = `trazo${Date.now()}${Math.random().toString(36).slice(2)}`;
+    const input = `/${id}-input.pdf`;
+    const output = `/${id}-output.pdf`;
+    try {
+      qpdf.FS.writeFile(input, sourceBytes);
+      const exitCode = qpdf.callMain([`--password=${password}`, '--decrypt', input, output]);
+      if (exitCode !== 0) throw new Error(`QPDF falló (${exitCode})`);
+      return new Uint8Array(qpdf.FS.readFile(output));
+    } finally {
+      try { qpdf.FS.unlink(input); } catch (_) {}
+      try { qpdf.FS.unlink(output); } catch (_) {}
+    }
+  }
+
   async function openPdf(file) {
     if (state.busy) return;
     if (!file.name.toLowerCase().endsWith('.pdf') && file.type !== 'application/pdf') return notify('Selecciona un archivo PDF.', true);
@@ -69,16 +188,37 @@
     let etapa = 'lectura';
     try {
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-      const bytes = await file.arrayBuffer();
-      // Copia defensiva: pdf.js puede transferir/desasociar el buffer entregado al worker.
+      const bytes = new Uint8Array(await file.arrayBuffer());
       etapa = 'visualización';
-      pdf = await pdfjsLib.getDocument({ data: new Uint8Array(bytes.slice(0)), useSystemFonts: true }).promise;
-      // Comprobar pronto que pdf-lib puede editar el archivo (por ejemplo, un PDF cifrado podría no ser admisible).
+      const access = await loadPdfWithPassword(bytes);
+      pdf = access.pdf;
+      let editableBytes = bytes;
+      let exportMode = 'vector';
+      let protectedPdf = access.requiredPassword;
       etapa = 'edición';
-      await PDFLib.PDFDocument.load(bytes.slice(0));
+      try {
+        await PDFLib.PDFDocument.load(editableBytes.slice());
+      } catch (err) {
+        if (!isPdfEncryptedError(err)) throw err;
+        protectedPdf = true;
+        etapa = 'desbloqueo';
+        $('loadingTitle').textContent = 'Preparando PDF protegido…';
+        $('loadingDetail').textContent = 'Conservando páginas y calidad original';
+        try {
+          editableBytes = await decryptWithQpdf(bytes, access.password);
+          await PDFLib.PDFDocument.load(editableBytes.slice());
+        } catch (wasmError) {
+          console.warn('[Trazo] Motor de desbloqueo no disponible:', wasmError);
+          const allowed = await authorizeVisualCopy();
+          if (!allowed) throw new Error('TRAZO_CANCELLED');
+          exportMode = 'visual';
+          editableBytes = new Uint8Array(0);
+        }
+      }
       const previousPdf = state.pdf;
       state.file = file;
-      state.originalBytes = bytes;
+      state.originalBytes = editableBytes;
+      state.exportMode = exportMode;
       state.pdf = pdf;
       state.pages = [];
       state.placements = [];
@@ -91,26 +231,30 @@
       $('newDocBtn').classList.remove('hidden');
       $('fileName').textContent = file.name;
       $('fileInfo').textContent = `${pdf.numPages} ${pdf.numPages === 1 ? 'página' : 'páginas'} · ${formatBytes(file.size)}`;
+      const status = $('protectionStatus');
+      status.classList.toggle('hidden', !protectedPdf);
+      status.textContent = exportMode === 'visual' ? '🔒 PDF protegido · copia visual al descargar' : '🔓 PDF protegido abierto para firmar';
       updateSignatureLibrary();
       updateSelectionPanel();
       updateCount();
       etapa = 'renderizado';
       await renderPdf();
       if (previousPdf && previousPdf !== pdf) previousPdf.destroy().catch(() => {});
-      notify('PDF listo. Crea o selecciona una firma para colocarla.');
+      notify(exportMode === 'visual' ? 'PDF preparado. Se generará una copia visual cuando lo firmes.' : 'PDF listo. Crea o selecciona una firma para colocarla.');
     } catch (err) {
+      if (err?.message === 'TRAZO_CANCELLED') return;
       console.error(`[Trazo] Error en la etapa de ${etapa}:`, err);
-      const detalle = String(err?.message || '');
       let mensaje = 'No fue posible abrir este PDF. Comprueba que el archivo no esté dañado.';
-      if (/password|encrypted|cifrad|contraseña/i.test(detalle)) {
-        mensaje = 'Este PDF está cifrado o protegido con contraseña. Utiliza un PDF sin protección.';
+      if (err?.message === 'TRAZO_MAX_PASSWORD_ATTEMPTS') {
+        mensaje = 'Demasiados intentos de contraseña. Vuelve a seleccionar el PDF para intentarlo otra vez.';
+      } else if (isPdfPasswordError(err)) {
+        mensaje = 'El PDF está protegido. Se necesita una contraseña válida para abrirlo.';
       } else if (etapa === 'visualización' || etapa === 'renderizado') {
-        mensaje = 'No se pudo visualizar el PDF. Revisa tu conexión (necesaria para cargar el motor PDF), recarga la página e inténtalo de nuevo.';
+        mensaje = 'No se pudo visualizar el PDF. Comprueba la conexión a Internet y vuelve a intentarlo.';
       } else if (etapa === 'edición') {
-        mensaje = 'Se pudo leer el PDF, pero su estructura no permite editarlo con el motor actual. Prueba con otro PDF.';
+        mensaje = 'El PDF tiene una estructura que el editor no puede modificar directamente.';
       }
       notify(mensaje, true);
-      // Evita mostrar un editor incompleto cuando falla un renderizado.
       if (state.pdf === pdf) {
         state.pdf = null;
         state.originalBytes = null;
@@ -118,9 +262,11 @@
         state.placements = [];
         state.file = null;
       }
-      if (pdf) pdf.destroy().catch(() => {});
+    } finally {
+      if (pdf && state.pdf !== pdf) pdf.destroy().catch(() => {});
       if (!state.pdf) { $('editor').classList.add('hidden'); $('landing').classList.remove('hidden'); $('newDocBtn').classList.add('hidden'); }
-    } finally { busy(false); }
+      busy(false);
+    }
   }
 
   async function renderPdf() {
@@ -477,13 +623,59 @@
 
   /* Exportación: cada posición se convierte desde píxeles visibles a coordenadas PDF.
      Soporta páginas giradas a 0/90/180/270 grados mediante convertToPdfPoint. */
+  // Plan B solo con consentimiento: reconstruye páginas visibles como imágenes.
+  // No conserva texto seleccionable ni validación de firmas digitales previas.
+  async function makeVisualPdfWithSignatures() {
+    const output = await PDFLib.PDFDocument.create();
+    const signatures = new Map();
+    const placementsByPage = new Map();
+    for (const stamp of state.placements) {
+      if (!placementsByPage.has(stamp.pageIndex)) placementsByPage.set(stamp.pageIndex, []);
+      placementsByPage.get(stamp.pageIndex).push(stamp);
+    }
+    for (let i = 0; i < state.pdf.numPages; i++) {
+      $('loadingDetail').textContent = `Convirtiendo página ${i + 1} de ${state.pdf.numPages}`;
+      const page = await state.pdf.getPage(i + 1);
+      const visible = page.getViewport({ scale: 1 });
+      const maxPixels = 7_000_000;
+      const targetScale = Math.min(1.75, Math.sqrt(maxPixels / (visible.width * visible.height)));
+      const viewport = page.getViewport({ scale: Math.max(1, targetScale) });
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.ceil(viewport.width);
+      canvas.height = Math.ceil(viewport.height);
+      const context = canvas.getContext('2d', { alpha: false });
+      await page.render({ canvasContext: context, viewport }).promise;
+      const image = await output.embedJpg(canvas.toDataURL('image/jpeg', 0.92));
+      const outputPage = output.addPage([visible.width, visible.height]);
+      outputPage.drawImage(image, { x: 0, y: 0, width: visible.width, height: visible.height });
+      canvas.width = canvas.height = 0;
+      for (const stamp of placementsByPage.get(i) || []) {
+        const signature = signatureForId(stamp.signatureId);
+        if (!signature) continue;
+        if (!signatures.has(signature.id)) signatures.set(signature.id, await output.embedPng(signature.dataUrl));
+        outputPage.drawImage(signatures.get(signature.id), {
+          x: stamp.x * visible.width,
+          y: visible.height * (1 - stamp.y - stamp.h),
+          width: stamp.w * visible.width,
+          height: stamp.h * visible.height,
+        });
+      }
+      await new Promise(resolve => setTimeout(resolve, 0));
+    }
+    return output.save();
+  }
+
   $('downloadBtn').addEventListener('click', async () => {
     if (state.busy || !state.pdf || !state.originalBytes) return;
     if (!state.placements.length) return notify('Coloca al menos una firma antes de descargar.', true);
     busy(true, 'Creando PDF firmado…', 'Incorporando las firmas al documento');
     try {
-      const outputPdf = await PDFLib.PDFDocument.load(state.originalBytes.slice(0));
-      const allPages = outputPdf.getPages();
+      let bytes;
+      if (state.exportMode === 'visual') {
+        bytes = await makeVisualPdfWithSignatures();
+      } else {
+        const outputPdf = await PDFLib.PDFDocument.load(state.originalBytes.slice());
+        const allPages = outputPdf.getPages();
       const pngCache = new Map();
       for (const stamp of state.placements) {
         const signature = signatureForId(stamp.signatureId);
@@ -504,7 +696,8 @@
         const rotation = ((view.rotation % 360) + 360) % 360;
         allPages[stamp.pageIndex].drawImage(image, { x, y, width, height, rotate: PDFLib.degrees(rotation) });
       }
-      const bytes = await outputPdf.save();
+        bytes = await outputPdf.save();
+      }
       const blob = new Blob([bytes], { type: 'application/pdf' });
       const downloadUrl = URL.createObjectURL(blob);
       const a = document.createElement('a');
