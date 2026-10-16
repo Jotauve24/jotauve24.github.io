@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8fc">
+  <meta name="description" content="Firma tus PDF de forma sencilla y privada, directamente desde tu navegador.">
+  <title>Trazo — Firma tus PDF</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="#inicio" class="brand" aria-label="Trazo, inicio">
+      <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M8 22l5.5-2L24 8.8c1-1 .9-2.7-.2-3.6-1-.9-2.6-.8-3.5.2L9.5 17.7 8 22Z" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round"/><path d="M7 26h18" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/></svg></span>
+      <span>trazo<span class="brand-dot">.</span></span>
+      <span class="brand-description">Firmar PDF</span>
+    </a>
+    <div class="topbar-actions">
+      <span class="privacy-pill"><span class="privacy-dot"></span> Procesamiento en tu navegador</span>
+      <button class="button button-ghost header-help" id="helpBtn" type="button">¿Cómo funciona?</button>
+      <button class="button button-outline hidden" id="newDocBtn" type="button"><svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14m-7-7h14"/></svg> Nuevo PDF</button>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="landing" id="landing">
+      <div class="hero-glow glow-1"></div><div class="hero-glow glow-2"></div>
+      <div class="hero-content">
+        <div class="eyebrow"><span class="eyebrow-star">✦</span> Tu herramienta de firma, simple y segura</div>
+        <h1>Firma tus documentos.<br><span>Sin complicaciones.</span></h1>
+        <p class="hero-subtitle">Sube tu PDF, crea tu firma y colócala exactamente donde la necesitas. Todo desde el navegador, sin cuentas ni registros.</p>
+        <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Seleccionar un archivo PDF o arrastrarlo aquí">
+          <div class="upload-icon"><svg viewBox="0 0 40 40" fill="none"><path d="M11 26v4.5A4.5 4.5 0 0 0 15.5 35h14a4.5 4.5 0 0 0 4.5-4.5V26M22.5 6v21m0-21-8 8m8-8 8 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h2>Arrastra tu PDF aquí</h2>
+          <p>o selecciona un archivo de tu dispositivo</p>
+          <button class="button button-primary upload-button" id="selectFileBtn" type="button"><svg class="icon" viewBox="0 0 24 24"><path d="M12 16V4m0 0-4 4m4-4 4 4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg> Seleccionar PDF</button>
+          <span class="upload-note">Solo archivos PDF · Hasta 50 MB · Tus documentos no se envían a nuestro servidor</span>
+        </div>
+        <div class="steps">
+          <div class="step"><span class="step-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9m-7-7 7 7m-7-7v7h7"/></svg></span><div><strong>01. Sube</strong><span>Selecciona tu documento</span></div></div>
+          <span class="step-chevron">→</span>
+          <div class="step"><span class="step-icon"><svg class="icon" viewBox="0 0 24 24"><path d="m12 19 7-7 3 3-7 7-5 1 2-4ZM18 13l-7-7 3-3 7 7M2 22h7"/></svg></span><div><strong>02. Firma</strong><span>Dibuja, escribe o sube</span></div></div>
+          <span class="step-chevron">→</span>
+          <div class="step"><span class="step-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3"/></svg></span><div><strong>03. Descarga</strong><span>Obtén tu PDF firmado</span></div></div>
+        </div>
+        <p class="privacy-line"><svg class="icon" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> Privado por diseño. El archivo se procesa localmente en tu navegador.</p>
+      </div>
+    </section>
+
+    <section class="editor hidden" id="editor" aria-label="Editor para firmar PDF">
+      <aside class="left-panel">
+        <div class="panel-section document-summary">
+          <div class="panel-heading">DOCUMENTO</div>
+          <div class="document-info">
+            <span class="doc-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9m-7-7 7 7m-7-7v7h7"/></svg></span>
+            <div class="document-text"><strong id="fileName">documento.pdf</strong><span id="fileInfo">1 página</span></div>
+          </div>
+        </div>
+        <div class="panel-section signatures-section">
+          <div class="panel-title-row"><div class="panel-heading">MIS FIRMAS</div><span class="counter" id="signatureCounter">0</span></div>
+          <div id="signatureLibrary" class="signature-library"><div class="sign-empty">Aún no has creado una firma.</div></div>
+          <button id="createSignatureBtn" class="button button-primary button-full" type="button"><svg class="icon" viewBox="0 0 24 24"><path d="m12 19 7-7 3 3-7 7-5 1 2-4ZM18 13l-7-7 3-3 7 7M2 22h7"/></svg> Crear firma</button>
+          <p class="side-hint">Haz clic en una firma para colocarla en la página que estás viendo. Puedes agregarla más de una vez.</p>
+        </div>
+        <div class="panel-section panel-section-bottom"><div class="security-note"><svg class="icon" viewBox="0 0 24 24"><path d="m12 22 7-4V6l-7-4-7 4v12l7 4Zm-3-10 2 2 4-4"/></svg><div><strong>Tu privacidad importa</strong><span>Procesamos el PDF y la firma en este dispositivo.</span></div></div></div>
+      </aside>
+      <div class="center-panel">
+        <div class="editor-toolbar">
+          <div class="toolbar-left"><div class="page-info"><svg class="icon" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-3m-7-8 7-5m0 0h-5m5 0v5"/></svg><span id="pageIndicator">Página 1 de 1</span></div><span class="toolbar-divider"></span><span class="hint-drag">Arrastra la firma para moverla</span></div>
+          <div class="toolbar-right"><span class="zoom-label">Zoom</span><select aria-label="Zoom del documento" id="zoomSelect"><option value="0.75">75 %</option><option value="0.9">90 %</option><option value="1" selected>100 %</option><option value="1.25">125 %</option><option value="1.5">150 %</option></select></div>
+        </div>
+        <div class="pdf-workspace" id="workspace"><div class="pdf-pages" id="pdfPages"></div></div>
+        <div class="editor-footer"><span><span class="footer-dot"></span> Guardado en este navegador hasta cerrar la página</span><span id="placedCount">0 firmas colocadas</span></div>
+      </div>
+      <aside class="right-panel">
+        <div class="panel-heading">PROPIEDADES</div>
+        <div class="selection-empty" id="selectionEmpty"><div class="selection-illustration"><svg viewBox="0 0 64 64" fill="none"><rect x="12" y="11" width="40" height="48" rx="4" stroke="currentColor" stroke-width="2"/><path d="M21 28h22M21 35h16M21 42h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="m36 48 7-8 5 4-7 8-7 2 2-6Z" fill="#EDE8FF" stroke="#7455D8" stroke-width="1.5"/></svg></div><strong>Personaliza tu firma</strong><span>Selecciona una firma colocada para ajustar su tamaño o eliminarla.</span></div>
+        <div id="selectionProperties" class="selection-properties hidden"><div class="property-card"><div class="property-label">FIRMA SELECCIONADA</div><div id="selectedPreview" class="selected-preview"></div><div class="property-description" id="selectedPageLabel">Página 1</div></div><div class="property-card"><label class="size-label" for="sizeRange"><span>Tamaño</span><strong id="sizeValue">35 %</strong></label><input id="sizeRange" type="range" min="12" max="65" value="35"><div class="size-limits"><span>Pequeña</span><span>Grande</span></div></div><button class="button button-danger button-full" id="deleteStampBtn" type="button"><svg class="icon" viewBox="0 0 24 24"><path d="M3 6h18m-2 0-.8 14H5.8L5 6m4 0V4h6v2m-6 4v7m6-7v7"/></svg> Eliminar esta firma</button></div>
+        <div class="right-bottom"><button id="downloadBtn" class="button button-primary button-full download-btn" type="button"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3"/></svg> Descargar PDF firmado</button><p>La firma quedará incorporada al PDF descargado.</p></div>
+      </aside>
+    </section>
+  </main>
+
+  <input type="file" id="pdfFileInput" accept=".pdf,application/pdf" hidden>
+  <div class="modal-backdrop hidden" id="signatureModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-window">
+      <div class="modal-header"><div><span class="modal-eyebrow">NUEVA FIRMA</span><h2 id="modalTitle">Crea tu firma</h2><p>Elige cómo quieres firmar el documento.</p></div><button type="button" class="icon-button" id="closeModalBtn" aria-label="Cerrar"><svg class="icon" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></svg></button></div>
+      <div class="modal-tabs" role="tablist" aria-label="Forma de crear la firma"><button type="button" data-sign-mode="draw" class="tab active" role="tab" aria-selected="true"><svg class="icon" viewBox="0 0 24 24"><path d="m12 19 7-7 3 3-7 7-5 1 2-4ZM2 22h7"/></svg> Dibujar</button><button type="button" data-sign-mode="type" class="tab" role="tab" aria-selected="false"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7V4h16v3M12 4v16m-4 0h8"/></svg> Escribir</button><button type="button" data-sign-mode="upload" class="tab" role="tab" aria-selected="false"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v3h16v-3"/></svg> Subir imagen</button></div>
+      <div class="modal-body">
+        <div class="signature-mode" id="drawMode"><div class="mode-head"><label>Firma en el recuadro con el ratón o el dedo</label><button type="button" id="clearDrawingBtn" class="small-text-button">Borrar trazo</button></div><div class="drawing-surface"><canvas id="drawingCanvas" width="800" height="260" aria-label="Espacio para dibujar la firma"></canvas><span class="signature-line"></span></div></div>
+        <div class="signature-mode hidden" id="typeMode"><label for="typedName">Escribe tu nombre o firma</label><input type="text" id="typedName" placeholder="Ej. María González" maxlength="65" autocomplete="off"><label class="font-subtitle">Selecciona un estilo</label><div class="font-options" id="fontOptions"><button type="button" class="font-option active" data-font="script">Firma clásica</button><button type="button" class="font-option" data-font="elegant">Firma elegante</button><button type="button" class="font-option" data-font="serif">Firma formal</button></div><div id="typedPreview" class="typed-preview">Tu firma aparecerá aquí</div></div>
+        <div class="signature-mode hidden" id="uploadMode"><label for="signatureImageInput" class="image-upload"><svg viewBox="0 0 40 40" fill="none"><path d="M7 24v7a4 4 0 0 0 4 4h18a4 4 0 0 0 4-4v-7M20 7v19m0-19-7 7m7-7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><strong id="imageFileName">Seleccionar una imagen</strong><span>PNG, JPG o WEBP · Recomendamos PNG transparente</span></label><input id="signatureImageInput" type="file" accept="image/png,image/jpeg,image/webp" hidden><div id="imagePreview" class="image-preview hidden"></div></div>
+        <div class="modal-tip"><svg class="icon" viewBox="0 0 24 24"><path d="M12 8v4m0 4h.01M10 3h4l8 16H2l8-16Z"/></svg><span>Esta herramienta inserta una firma visible. No genera certificados digitales ni valida identidades.</span></div>
+      </div>
+      <div class="modal-actions"><button type="button" class="button button-outline" id="cancelSignatureBtn">Cancelar</button><button type="button" class="button button-primary" id="saveSignatureBtn">Crear y colocar firma <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button></div>
+    </div>
+  </div>
+  <div class="modal-backdrop hidden" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle"><div class="help-window"><button type="button" id="closeHelpBtn" class="icon-button help-close" aria-label="Cerrar"><svg class="icon" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></svg></button><span class="modal-eyebrow">GUÍA RÁPIDA</span><h2 id="helpTitle">Firmar es así de sencillo</h2><ol class="help-list"><li><strong>Carga un archivo PDF.</strong><span>Arrástralo a la página o selecciónalo de tu equipo.</span></li><li><strong>Crea una firma.</strong><span>Dibújala, escríbela o sube una imagen.</span></li><li><strong>Colócala donde quieras.</strong><span>Muévela con el ratón o el dedo y cambia su tamaño.</span></li><li><strong>Descarga el resultado.</strong><span>La firma visible se incorpora al PDF final.</span></li></ol><p class="help-disclaimer">No se añade firma digital criptográfica ni certificado de identidad. Evita modificar documentos que ya tengan firmas digitales verificables, porque la edición puede invalidarlas.</p><button class="button button-primary button-full" id="gotItBtn">Entendido</button></div></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="loadingOverlay" class="loading-overlay hidden" aria-live="polite"><div class="loading-card"><div class="spinner"></div><strong id="loadingTitle">Preparando documento…</strong><span id="loadingDetail">Un momento</span></div></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
