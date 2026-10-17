@@ -328,11 +328,26 @@
   }
   $('zoomSelect').addEventListener('change', async () => {
     if (!state.pdf || state.busy) return;
+    const previousPage = state.activePage;
+    const previousZoom = state.zoom;
     state.zoom = Number($('zoomSelect').value) || 1;
     busy(true, 'Ajustando zoom…', 'Actualizando páginas');
-    try { await renderPdf(); activeFromScroll(); }
-    catch (err) { console.error(err); notify('No se pudo actualizar el zoom.', true); }
-    finally { busy(false); }
+    try {
+      await renderPdf();
+      const page = state.pages[previousPage];
+      if (page) {
+        // Conservar la página que se estaba leyendo, incluso al cambiar de escala.
+        const workspace = $('workspace');
+        const offset = page.wrap.getBoundingClientRect().top - workspace.getBoundingClientRect().top;
+        workspace.scrollTop += offset - 18;
+      }
+      activeFromScroll();
+    } catch (err) {
+      console.error(err);
+      state.zoom = previousZoom;
+      $('zoomSelect').value = String(previousZoom);
+      notify('No se pudo actualizar el zoom. Vuelve a intentarlo.', true);
+    } finally { busy(false); }
   });
 
   function signatureForId(id) { return state.signatures.find(s => s.id === id); }
@@ -412,9 +427,13 @@
   $('sizeRange').addEventListener('input', (e) => {
     const stamp = currentPlacement(); if (!stamp) return;
     const asset = signatureForId(stamp.signatureId);
-    const dims = dimensionsOf(asset, stamp.pageIndex, Number(e.target.value) / 100);
-    stamp.w = clamp(dims.w, .08, 1);
-    stamp.h = clamp(dims.h, .01, 1);
+    if (!asset || !state.pages[stamp.pageIndex]) return;
+    const desiredWidth = Number(e.target.value) / 100;
+    const page = state.pages[stamp.pageIndex];
+    const maxWidthByHeight = (1 - stamp.y) * page.viewport.height * asset.aspect / page.viewport.width;
+    // Conservar las proporciones de la firma y evitar que exceda el borde de la página.
+    stamp.w = Math.min(desiredWidth, 1, Math.max(.01, maxWidthByHeight));
+    stamp.h = dimensionsOf(asset, stamp.pageIndex, stamp.w).h;
     stamp.x = clamp(stamp.x, 0, 1 - stamp.w);
     stamp.y = clamp(stamp.y, 0, 1 - stamp.h);
     $('sizeValue').textContent = `${Math.round(stamp.w * 100)} %`;
@@ -438,9 +457,15 @@
     const stamp = placementForId(el.dataset.id);
     const page = stamp && state.pages[stamp.pageIndex];
     if (!stamp || !page) return;
-    e.preventDefault();
-    selectStamp(stamp.id);
     const resize = !!e.target.closest('.resize-handle');
+    e.preventDefault();
+    // No recrear el DOM al comenzar el gesto: en móviles rompería la captura táctil.
+    state.selectedId = stamp.id;
+    state.pages.forEach(p => p.overlay.querySelectorAll('.sig-stamp').forEach(item => {
+      item.classList.toggle('selected', item.dataset.id === stamp.id);
+    }));
+    updateSelectionPanel();
+    if (el.setPointerCapture) { try { el.setPointerCapture(e.pointerId); } catch (_) {} }
     state.drag = {
       id: stamp.id, pageIndex: stamp.pageIndex, resize, x: e.clientX, y: e.clientY,
       origX: stamp.x, origY: stamp.y, origW: stamp.w, origH: stamp.h,
@@ -478,6 +503,8 @@
     document.body.style.userSelect = '';
   };
   window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+  window.addEventListener('blur', endDrag);
   window.addEventListener('pointercancel', endDrag);
   window.addEventListener('blur', endDrag);
 
