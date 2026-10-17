@@ -73,8 +73,22 @@
     if (!pages.length) return;
     const text = $('pageIndicator').textContent || '';
     const current = Math.min(pages.length-1,Math.max(0,(parseInt(text.match(/Página\s+(\d+)/i)?.[1] || '1',10)-1)));
-    pages[Math.min(pages.length-1,Math.max(0,current+direction))].scrollIntoView({behavior:'smooth',block:'start'});
+    const target = pages[Math.min(pages.length - 1, Math.max(0, current + direction))];
+    const workspace = $('workspace');
+    const distance = target.getBoundingClientRect().top - workspace.getBoundingClientRect().top;
+    // Solo desplazar el visor, no toda la página ni la barra superior.
+    workspace.scrollTo({ top: workspace.scrollTop + distance - 12, behavior: 'smooth' });
   }
+  function updatePagination() {
+    const total = document.querySelectorAll('#pdfPages .page-wrapper').length;
+    const match = ($('pageIndicator').textContent || '').match(/Página\s+(\d+)/i);
+    const current = match ? Number(match[1]) : 1;
+    $('prevPageBtn').disabled = !total || current <= 1;
+    $('nextPageBtn').disabled = !total || current >= total;
+  }
+  const pageObserver = new MutationObserver(updatePagination);
+  pageObserver.observe($('pdfPages'), { childList: true });
+  pageObserver.observe($('pageIndicator'), { childList: true, characterData: true, subtree: true });
   const levels=[.5,.75,.9,1,1.25,1.5];
   function zoomBy(delta){
     const sel=$('zoomSelect');
@@ -98,4 +112,5 @@
   observer.observe(editor,{attributes:true,attributeFilter:['class']});
   observer.observe(fileName,{childList:true,characterData:true,subtree:true});
   sync();
+  updatePagination();
 })();
