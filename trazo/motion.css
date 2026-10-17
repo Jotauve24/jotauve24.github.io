@@ -1,0 +1,148 @@
+/* TrazoJV Motion System v1 — purposeful, composited, accessible.
+   Pure presentation: no storage, network, or PDF manipulation. */
+:root {
+  --tjv-ease: cubic-bezier(.22,1,.36,1);
+  --tjv-ease-soft: cubic-bezier(.2,.72,.2,1);
+  --tjv-motion-fast: 150ms;
+  --tjv-motion-base: 230ms;
+  --tjv-motion-slow: 430ms;
+}
+
+/* Even without animation preference, clear interactive states are essential. */
+.nav-link, .header-close, .header-help, .nav-tool, .icon-button,
+.font-option, .tab, .signature-item, .button {
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-link:focus-visible, .header-close:focus-visible, .nav-tool:focus-visible,
+.signature-item:focus-visible, .button:focus-visible {
+  outline: 3px solid rgba(93,101,233,.50);
+  outline-offset: 2px;
+}
+
+/* The natural device setting determines whether motion is added. */
+@media (prefers-reduced-motion: no-preference) {
+  /* Initial presentation: modest elevation, not a splash-screen animation. */
+  .app-shell { animation: tjv-app-enter 520ms var(--tjv-ease) both; }
+  .brand-wordmark { animation: tjv-fade 330ms ease-out both; }
+  .landing:not(.hidden) .eyebrow { animation: tjv-reveal 430ms var(--tjv-ease) 60ms both; }
+  .landing:not(.hidden) .hero-content h1 { animation: tjv-reveal 510ms var(--tjv-ease) 115ms both; }
+  .landing:not(.hidden) .hero-subtitle { animation: tjv-reveal 480ms var(--tjv-ease) 170ms both; }
+  .landing:not(.hidden) .hero-points { animation: tjv-reveal 450ms var(--tjv-ease) 210ms both; }
+  .landing:not(.hidden) .hero-upload-panel { animation: tjv-card-enter 510ms var(--tjv-ease) 160ms both; }
+  .landing:not(.hidden) .steps { animation: tjv-reveal 450ms var(--tjv-ease) 270ms both; }
+  .landing:not(.hidden) .privacy-line { animation: tjv-fade 520ms ease-out 280ms both; }
+
+  /* PDF editor: small transitions that reinforce spatial layout. */
+  .editor:not(.hidden) .left-panel { animation: tjv-panel-left 340ms var(--tjv-ease) both; }
+  .editor:not(.hidden) .right-panel { animation: tjv-panel-right 370ms var(--tjv-ease) 45ms both; }
+  .editor:not(.hidden) .editor-toolbar { animation: tjv-fade 290ms ease-out 80ms both; }
+  .editor:not(.hidden) .editor-footer { animation: tjv-fade 320ms ease-out 115ms both; }
+  .editor:not(.hidden) .center-panel { animation: tjv-fade 300ms ease-out both; }
+
+  /* Buttons react to actual user input without unnecessary motion. */
+  .nav-link, .button, .header-close, .nav-tool, .icon-button,
+  .font-option, .tab, .signature-item {
+    transition-property: color, background-color, border-color, box-shadow, transform;
+    transition-duration: var(--tjv-motion-fast);
+    transition-timing-function: var(--tjv-ease-soft);
+  }
+  .nav-link:active, .button:active:not(:disabled),
+  .header-close:active, .editor-toolbar .nav-tool:active:not(:disabled),
+  .font-option:active, .signature-item:active {
+    transform: scale(.975);
+  }
+  .button-primary:hover:not(:disabled), .header-download:hover:not(:disabled) {
+    box-shadow: 0 5px 18px rgba(85,99,220,.22);
+  }
+  .nav-link.is-current { transition: background-color 190ms ease, color 190ms ease; }
+  .header-download svg, .download-btn svg, .upload-button svg {
+    transition: transform 170ms var(--tjv-ease);
+  }
+  .header-download:hover svg, .download-btn:hover svg { transform: translateY(2px); }
+  .upload-button:hover svg { transform: translateY(-2px); }
+  .header-help:hover { background-color: #f3f4ff; }
+
+  /* File picker drop area: precisely visible feedback only while dragging. */
+  .hero-upload-panel .dropzone {
+    transition: background-color 200ms ease, border-color 200ms ease, box-shadow 220ms ease;
+  }
+  .hero-upload-panel .dropzone:hover { box-shadow: inset 0 0 0 1px rgba(93,101,233,.08); }
+  .hero-upload-panel .dropzone.dragover {
+    box-shadow: inset 0 0 0 1px rgba(93,101,233,.25), 0 8px 30px rgba(93,101,233,.08);
+  }
+  .upload-icon { transition: background-color 220ms ease, transform 250ms var(--tjv-ease); }
+  .hero-upload-panel .dropzone:hover .upload-icon { transform: translateY(-3px); }
+  .hero-upload-panel .dropzone.dragover .upload-icon { transform: translateY(-6px) scale(1.035); }
+
+  /* Signature cards and inspector: avoid transforms on draggable PDF stamps. */
+  .signature-item:hover { box-shadow: 0 5px 15px rgba(32,51,92,.055); }
+  .sig-stamp { transition: border-color 100ms ease, box-shadow 130ms ease, background-color 100ms ease; }
+  .sig-stamp.selected { box-shadow: 0 0 0 3px rgba(93,101,233,.105); }
+  #selectedPreview { transition: background-color 180ms ease, border-color 180ms ease; }
+  #sizeRange { cursor: ew-resize; }
+  #selectionProperties:not(.hidden) { animation: tjv-inspector 220ms var(--tjv-ease) both; }
+
+  /* Dialogs are modal layers, so entrance is quick and low-travel. */
+  .modal-backdrop:not(.hidden) { animation: tjv-overlay 185ms ease-out both; }
+  .modal-backdrop:not(.hidden) > .modal-window,
+  .modal-backdrop:not(.hidden) > .help-window,
+  .modal-backdrop:not(.hidden) > .secure-dialog {
+    animation: tjv-dialog 290ms var(--tjv-ease) both;
+  }
+  .loading-overlay:not(.hidden) { animation: tjv-overlay 155ms ease-out both; }
+  .loading-overlay:not(.hidden) .loading-card { animation: tjv-dialog 240ms var(--tjv-ease) both; }
+
+  /* Status signals: short, not looping. */
+  #toast { transition: opacity 230ms ease, transform 260ms var(--tjv-ease); }
+  .motion-signature-added { animation: tjv-signature-card 310ms var(--tjv-ease) both; }
+  .motion-doc-loaded { animation: tjv-doc-ready 370ms var(--tjv-ease) both; }
+
+  @keyframes tjv-app-enter {
+    from { opacity: .88; transform: translateY(9px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes tjv-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes tjv-reveal {
+    from { opacity: 0; transform: translateY(13px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes tjv-card-enter {
+    from { opacity: 0; transform: translateY(16px) scale(.99); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes tjv-panel-left {
+    from { opacity: .35; transform: translateX(-9px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes tjv-panel-right {
+    from { opacity: .4; transform: translateX(9px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes tjv-overlay { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes tjv-dialog {
+    from { opacity: .6; transform: translateY(9px) scale(.987); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes tjv-inspector {
+    from { opacity: .65; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes tjv-signature-card {
+    from { opacity: .5; transform: translateY(7px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes tjv-doc-ready {
+    from { background-color: #f0f2ff; }
+    to { background-color: #fff; }
+  }
+}
+
+/* Accessibility: every action remains readable without motion. */
+@media (prefers-reduced-motion: reduce) {
+  .app-shell, .landing *, .editor *, .modal-backdrop *, .modal-backdrop,
+  .loading-overlay, #toast, .motion-signature-added, .motion-doc-loaded {
+    animation: none !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
