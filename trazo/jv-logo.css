@@ -1,0 +1,18 @@
+/* TrazoJV — monograma caligráfico aprobado.
+   Mantiene el color original (#5d65e9) y alinea JV ligeramente más abajo. */
+.brand-wordmark .brand-jv-mark {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 42px;
+  height: 31px;
+  position: relative;
+  top: 7px;
+  margin-left: 0;
+  object-fit: contain;
+}
+@media (max-width: 760px) {
+  .brand-wordmark .brand-jv-mark { width: 37px; height: 28px; top: 6px; }
+}
+@media (max-width: 500px) {
+  .brand-wordmark .brand-jv-mark { width: 34px; height: 26px; top: 6px; }
+}
