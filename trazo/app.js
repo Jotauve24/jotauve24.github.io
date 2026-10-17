@@ -374,6 +374,18 @@
     renderPageStamps(pageIndex);
     updateSelectionPanel();
     updateCount();
+    // En teléfonos, al crear una firma desde el panel inferior regresar al visor
+    // y mostrar automáticamente la firma recién colocada.
+    if (window.innerWidth <= 760) {
+      requestAnimationFrame(() => {
+        const workspace = $('workspace');
+        const element = state.pages[pageIndex]?.overlay.querySelector(`.sig-stamp[data-id="${stamp.id}"]`);
+        if (!element) return;
+        const distance = element.getBoundingClientRect().top - workspace.getBoundingClientRect().top;
+        workspace.scrollTop += distance - Math.max(80, workspace.clientHeight * .32);
+        $('editor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
     notify('Firma colocada. Puedes arrastrarla o cambiar su tamaño.');
   }
   function renderPageStamps(pageIndex) {
