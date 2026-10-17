@@ -239,6 +239,7 @@
       updateCount();
       etapa = 'renderizado';
       await renderPdf();
+      document.dispatchEvent(new CustomEvent('trazo:pdf-opened', { detail: { pages: pdf.numPages } }));
       if (previousPdf && previousPdf !== pdf) previousPdf.destroy().catch(() => {});
       notify(exportMode === 'visual' ? 'PDF preparado. Se generará una copia visual cuando lo firmes.' : 'PDF listo. Crea o selecciona una firma para colocarla.');
     } catch (err) {
@@ -386,6 +387,7 @@
         $('editor').scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     }
+    document.dispatchEvent(new CustomEvent('trazo:stamp-added', { detail: { stampId: stamp.id } }));
     notify('Firma colocada. Puedes arrastrarla o cambiar su tamaño.');
   }
   function renderPageStamps(pageIndex) {
@@ -656,6 +658,7 @@
       state.signatures.push(signature);
       updateSignatureLibrary();
       hideSignatureModal();
+      document.dispatchEvent(new CustomEvent('trazo:signature-created', { detail: { signatureId: signature.id } }));
       addStamp(signature.id);
     } catch (err) { notify(err.message || 'No se pudo crear la firma.', true); }
   });
@@ -745,6 +748,7 @@
       a.href = downloadUrl;
       document.body.append(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(downloadUrl), 45_000);
+      document.dispatchEvent(new CustomEvent('trazo:export-ready'));
       notify('Tu PDF firmado se ha descargado correctamente.');
     } catch (err) {
       console.error(err);
