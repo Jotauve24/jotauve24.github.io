@@ -50,6 +50,7 @@
 
                     if (isVisible) {
                         visibleCount += 1;
+                        card.classList.add("is-visible");
                         if (!reduceMotion) {
                             requestAnimationFrame(() => card.classList.add("filter-enter"));
                         }
