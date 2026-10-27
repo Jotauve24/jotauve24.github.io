@@ -27,6 +27,52 @@
         link.addEventListener("click", () => setMenuOpen(false));
     });
 
+    const projectFilters = [...document.querySelectorAll("[data-project-filter]")];
+    const projectCards = [...document.querySelectorAll(".project-grid [data-category]")];
+    const projectCount = document.querySelector("#project-count");
+
+    if (projectFilters.length && projectCards.length) {
+        projectFilters.forEach((button) => {
+            button.addEventListener("click", () => {
+                const category = button.dataset.projectFilter;
+                let visibleCount = 0;
+
+                projectFilters.forEach((filter) => {
+                    const isActive = filter === button;
+                    filter.classList.toggle("is-active", isActive);
+                    filter.setAttribute("aria-pressed", String(isActive));
+                });
+
+                projectCards.forEach((card) => {
+                    const isVisible = category === "all" || card.dataset.category === category;
+                    card.hidden = !isVisible;
+                    card.classList.remove("filter-enter");
+
+                    if (isVisible) {
+                        visibleCount += 1;
+                        if (!reduceMotion) {
+                            requestAnimationFrame(() => card.classList.add("filter-enter"));
+                        }
+                    }
+                });
+
+                if (projectCount) {
+                    projectCount.textContent = `${visibleCount} ${visibleCount === 1 ? "proyecto" : "proyectos"}`;
+                }
+            });
+        });
+
+        projectCards.forEach((card) => {
+            card.addEventListener("animationend", (event) => {
+                if (event.target === card && event.animationName === "filter-card-in") {
+                    card.classList.remove("filter-enter");
+                }
+            });
+        });
+
+        document.documentElement.classList.add("js-project-filters");
+    }
+
     document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && menuToggle?.getAttribute("aria-expanded") === "true") {
             setMenuOpen(false);

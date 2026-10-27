@@ -45,6 +45,7 @@
                 <a class="nav-link" href="#inicio">Inicio</a>
                 <a class="nav-link" href="#perfil">Perfil</a>
                 <a class="nav-link" href="#proyectos">Proyectos</a>
+                <a class="nav-link" href="#proceso">Proceso</a>
                 <a class="nav-link" href="#enfoque">Enfoque</a>
                 <a class="nav-link" href="#herramientas">Herramientas</a>
                 <a class="nav-link nav-contact" href="#contacto">
@@ -65,8 +66,8 @@
             <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
             <div class="hero-inner page-width">
                 <div class="hero-copy" data-reveal>
-                    <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span> Panamá <span class="eyebrow-divider">/</span> Tecnología con propósito</p>
-                    <h1 id="hero-title">Jair Antonio<br><span>Valdes Tejeira</span><i aria-hidden="true">.</i></h1>
+                    <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span> Jair Antonio Valdes Tejeira</p>
+                    <h1 id="hero-title">Ideas que<br><span>conectan</span><i aria-hidden="true">.</i></h1>
                     <p class="hero-role">Inteligencia digital, datos y desarrollo web.</p>
                     <p class="hero-description">
                         Conecto análisis, tecnología y aprendizaje para desarrollar herramientas útiles y experiencias digitales claras.
@@ -90,7 +91,7 @@
                         <img src="img/perfil.png" alt="Retrato de Jair Antonio Valdes Tejeira" width="1086" height="1470" fetchpriority="high">
                         <figcaption>
                             <span class="portrait-caption-mark" aria-hidden="true"></span>
-                            <span><strong>Ideas que conectan</strong><small>Personas · datos · tecnología</small></span>
+                            <span><strong>Personas · datos · tecnología</strong><small>Análisis · aprendizaje · creación</small></span>
                         </figcaption>
                     </figure>
                     <div class="hero-sticker" aria-hidden="true">
@@ -154,8 +155,18 @@
                     <p class="section-intro">Herramientas y experiencias creadas para organizar información, facilitar el aprendizaje y resolver tareas cotidianas.</p>
                 </div>
 
+                <div class="project-discovery" data-reveal>
+                    <div class="project-filters" role="group" aria-label="Filtrar proyectos">
+                        <button class="project-filter is-active" type="button" data-project-filter="all" aria-pressed="true">Todos</button>
+                        <button class="project-filter" type="button" data-project-filter="analysis" aria-pressed="false">Inteligencia digital</button>
+                        <button class="project-filter" type="button" data-project-filter="education" aria-pressed="false">Educación</button>
+                        <button class="project-filter" type="button" data-project-filter="web" aria-pressed="false">Web y herramientas</button>
+                    </div>
+                    <p class="project-count" id="project-count" aria-live="polite" aria-atomic="true">4 proyectos</p>
+                </div>
+
                 <div class="project-grid">
-                    <article class="project-card" data-reveal>
+                    <article class="project-card" data-category="analysis" data-reveal>
                         <div class="project-art art-monitoring" aria-hidden="true">
                             <div class="mini-window monitor-window">
                                 <div class="mini-window-bar"><span>MONITOREO DIGITAL</span><span class="window-dots"><i></i><i></i><i></i></span></div>
@@ -178,7 +189,7 @@
                         </div>
                     </article>
 
-                    <article class="project-card" data-reveal>
+                    <article class="project-card" data-category="education" data-reveal>
                         <div class="project-art art-classroom" aria-hidden="true">
                             <div class="room-preview">
                                 <div class="room-title"><span>AULA VIRTUAL</span><span class="room-menu">•••</span></div>
@@ -201,7 +212,7 @@
                         </div>
                     </article>
 
-                    <article class="project-card" data-reveal>
+                    <article class="project-card" data-category="education" data-reveal>
                         <div class="project-art art-learning" aria-hidden="true">
                             <div class="learning-preview">
                                 <div class="learning-top"><span>LABORATORIO DE INFORMÁTICA</span><span>01 / 06</span></div>
@@ -222,7 +233,7 @@
                         </div>
                     </article>
 
-                    <article class="project-card" data-reveal>
+                    <article class="project-card" data-category="web" data-reveal>
                         <div class="project-art art-trazo" aria-hidden="true">
                             <div class="pdf-preview">
                                 <div class="pdf-page"><span class="pdf-badge">PDF</span><i class="pdf-line pdf-line-wide"></i><i class="pdf-line"></i><i class="pdf-line pdf-line-short"></i><span class="signature-stroke">Jv</span><i class="pdf-sign-line"></i><small>Firma visual</small></div>
@@ -253,10 +264,36 @@
             </div>
         </section>
 
+        <section class="section process-section" id="proceso" aria-labelledby="process-title">
+            <div class="page-width">
+                <div class="section-heading section-heading-row" data-reveal>
+                    <div>
+                        <p class="section-kicker"><span>03</span> CÓMO TRABAJO</p>
+                        <h2 id="process-title">Del contexto a una<br><em>solución clara.</em></h2>
+                    </div>
+                    <p class="section-intro">Cada proyecto comienza por entender a quién debe ayudar y termina con una herramienta o una idea que se pueda usar.</p>
+                </div>
+                <div class="process-row" role="list" aria-label="Etapas de trabajo">
+                    <article class="process-step" role="listitem" data-reveal>
+                        <span class="process-number">01</span>
+                        <div><h3>Entender el contexto</h3><p>Defino la necesidad, las fuentes de información y las personas involucradas.</p></div>
+                    </article>
+                    <article class="process-step" role="listitem" data-reveal>
+                        <span class="process-number">02</span>
+                        <div><h3>Analizar y organizar</h3><p>Encuentro patrones y elijo métodos y herramientas según el objetivo.</p></div>
+                    </article>
+                    <article class="process-step" role="listitem" data-reveal>
+                        <span class="process-number">03</span>
+                        <div><h3>Construir con criterio</h3><p>Desarrollo, reviso y comparto soluciones claras que cuidan la experiencia.</p></div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
         <section class="section focus-section" id="enfoque" aria-labelledby="focus-title">
             <div class="page-width">
                 <div class="section-heading" data-reveal>
-                    <p class="section-kicker"><span>03</span> ÁREAS DE ENFOQUE</p>
+                    <p class="section-kicker"><span>04</span> ÁREAS DE ENFOQUE</p>
                     <h2 id="focus-title">Un perfil que conecta<br><em>distintas disciplinas.</em></h2>
                     <p class="section-intro">Áreas donde conecto análisis, creación digital y aprendizaje.</p>
                 </div>
@@ -300,7 +337,7 @@
             <div class="page-width">
                 <div class="section-heading section-heading-row" data-reveal>
                     <div>
-                        <p class="section-kicker"><span>04</span> ECOSISTEMA DIGITAL</p>
+                        <p class="section-kicker"><span>05</span> ECOSISTEMA DIGITAL</p>
                         <h2 id="tools-title">Herramientas al servicio<br><em>de buenas ideas.</em></h2>
                     </div>
                     <p class="section-intro">Tecnologías y plataformas para crear, analizar, organizar, colaborar y publicar proyectos digitales.</p>
