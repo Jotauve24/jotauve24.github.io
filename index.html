@@ -1,276 +1,383 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jair Antonio Valdes Tejeira</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Portafolio profesional de Jair Antonio Valdes Tejeira: inteligencia digital, análisis de datos, desarrollo web y educación tecnológica.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Jair Valdes Tejeira — Tecnología con propósito">
+    <meta property="og:description" content="Inteligencia digital, datos, desarrollo web y educación tecnológica desde Panamá.">
+    <meta property="og:image" content="img/perfil.png">
+    <link rel="canonical" href="https://jotauve24.github.io/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <title>Jair Valdes Tejeira — Portafolio profesional</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Jair Antonio Valdes Tejeira",
+      "url": "https://jotauve24.github.io/",
+      "jobTitle": "Profesional de tecnología y docente de informática",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "PA"
+      },
+      "sameAs": [
+        "https://github.com/Jotauve24",
+        "https://www.linkedin.com/in/jair-valdes-5213731a9/"
+      ]
+    }
+    </script>
 </head>
 <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-    <header class="navbar">
-        <a href="#inicio" class="logo">JOTAU<span>VE</span></a>
+    <header class="site-header">
+        <div class="reading-progress" aria-hidden="true"><span id="reading-progress-fill"></span></div>
+        <div class="header-inner">
+            <a class="brand" href="#inicio" aria-label="JOTAUVE, inicio"><span class="brand-wordmark">JOTAU<span>VE</span></span></a>
 
-        <nav>
-            <a href="#inicio" class="active">Inicio</a>
-            <a href="#perfil">Perfil</a>
-            <a href="#especificaciones">Especificaciones</a>
-            <a href="#recursos">Recursos</a>
-        </nav>
+            <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
+                <a class="nav-link" href="#inicio">Inicio</a>
+                <a class="nav-link" href="#perfil">Perfil</a>
+                <a class="nav-link" href="#proyectos">Proyectos</a>
+                <a class="nav-link" href="#enfoque">Enfoque</a>
+                <a class="nav-link" href="#herramientas">Herramientas</a>
+                <a class="nav-link nav-contact" href="#contacto">
+                    Hablemos
+                    <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11M10 5l5 5-5 5"/></svg>
+                </a>
+            </nav>
 
-        <a href="#perfil" class="btn-contacto">Contáctame</a>
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú">
+                <span></span><span></span>
+            </button>
+        </div>
     </header>
 
-    <section class="hero" id="inicio">
-        <div class="hero-content">
-            <h3>ESPECIALISTA EN <span>INFORMÁTICA,</span> TECNOLOGÍA & CIENCIA DE DATOS.</h3>
+    <main id="contenido">
+        <section class="hero" id="inicio" aria-labelledby="hero-title">
+            <div class="hero-glow hero-glow-one" aria-hidden="true"></div>
+            <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
+            <div class="hero-inner page-width">
+                <div class="hero-copy" data-reveal>
+                    <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span> Panamá <span class="eyebrow-divider">/</span> Tecnología con propósito</p>
+                    <h1 id="hero-title">Jair Antonio<br><span>Valdes Tejeira</span><i aria-hidden="true">.</i></h1>
+                    <p class="hero-role">Inteligencia digital, datos y desarrollo web.</p>
+                    <p class="hero-description">
+                        Conecto análisis, tecnología y aprendizaje para desarrollar herramientas útiles y experiencias digitales claras.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#proyectos">
+                            Explorar proyectos
+                            <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11M10 5l5 5-5 5"/></svg>
+                        </a>
+                        <a class="button button-secondary" href="#contacto">
+                            Conversemos
+                            <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 15 15 5M6 5h9v9"/></svg>
+                        </a>
+                    </div>
+                </div>
 
-            <h1>JAIR ANTONIO<br>VALDES TEJEIRA</h1>
-
-            <p>
-                Apasionado por la tecnología, la educación y la innovación.
-                Mi misión es <span>inspirar, enseñar y formar</span> profesionales
-                preparados para los retos del futuro.
-            </p>
-
-            <div class="botones">
-                <a href="#perfil" class="btn-principal">CONÓCEME</a>
-                <a href="https://www.linkedin.com/in/jair-valdes-5213731a9/"
-   target="_blank"
-   class="btn-secundario">
-   VER LINKEDIN
-</a>
+                <div class="hero-visual" data-reveal="right">
+                    <div class="portrait-orbit orbit-one" aria-hidden="true"></div>
+                    <div class="portrait-orbit orbit-two" aria-hidden="true"></div>
+                    <figure class="portrait-frame">
+                        <img src="img/perfil.png" alt="Retrato de Jair Antonio Valdes Tejeira" width="1086" height="1470" fetchpriority="high">
+                        <figcaption>
+                            <span class="portrait-caption-mark" aria-hidden="true"></span>
+                            <span><strong>Ideas que conectan</strong><small>Personas · datos · tecnología</small></span>
+                        </figcaption>
+                    </figure>
+                    <div class="hero-sticker" aria-hidden="true">
+                        <span class="sticker-plus">+</span>
+                        <span>Aprender<br>para transformar</span>
+                    </div>
+                </div>
             </div>
+            <a class="hero-scroll" href="#perfil" aria-label="Desplazarse al perfil">
+                <span>Desliza para conocerme</span>
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M10 3v13m-5-5 5 5 5-5"/></svg>
+            </a>
+        </section>
+
+        <section class="section about-section" id="perfil" aria-labelledby="about-title">
+            <div class="page-width">
+                <div class="section-heading" data-reveal>
+                    <p class="section-kicker"><span>01</span> PERFIL</p>
+                    <h2 id="about-title">Tecnología que entiende<br><em>el contexto humano.</em></h2>
+                </div>
+
+                <div class="about-layout">
+                    <div class="about-copy" data-reveal>
+                        <p class="about-lead">
+                            Soy un profesional panameño de tecnología; trabajo entre inteligencia digital, monitoreo de medios, análisis de datos y docencia informática.
+                        </p>
+                        <p>
+                            La docencia también forma parte de mi trabajo: diseño recursos digitales y acompaño el desarrollo de competencias informáticas.
+                        </p>
+                        <p>
+                            Mantengo una práctica de aprendizaje continuo y comparto lo que aprendo para que más personas participen del mundo digital.
+                        </p>
+                        <a class="text-link" href="https://www.linkedin.com/in/jair-valdes-5213731a9/" target="_blank" rel="noopener noreferrer">
+                            Conoce más en LinkedIn
+                            <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 15 15 5M6 5h9v9"/></svg>
+                        </a>
+                    </div>
+
+                    <aside class="about-note" data-reveal="right">
+                        <div class="note-icon" aria-hidden="true">
+                            <svg viewBox="0 0 48 48" focusable="false"><path d="M8 37.5 18.2 27l7.1 6.1L40 16M31 16h9v9"/><path d="M8 10.5h13M8 17.5h6"/></svg>
+                        </div>
+                        <p class="note-label">MI PRINCIPIO</p>
+                        <p class="note-quote">“La tecnología amplía posibilidades cuando el propósito está claro.”</p>
+                        <span class="note-rule" aria-hidden="true"></span>
+                        <p class="note-caption">Curiosidad, contexto y criterio humano en cada proyecto.</p>
+                    </aside>
+                </div>
+
+
+            </div>
+        </section>
+
+        <section class="section projects-section" id="proyectos" aria-labelledby="projects-title">
+            <div class="page-width">
+                <div class="section-heading section-heading-row" data-reveal>
+                    <div>
+                        <p class="section-kicker"><span>02</span> TRABAJO SELECCIONADO</p>
+                        <h2 id="projects-title">Proyectos con un<br><em>propósito concreto.</em></h2>
+                    </div>
+                    <p class="section-intro">Herramientas y experiencias creadas para organizar información, facilitar el aprendizaje y resolver tareas cotidianas.</p>
+                </div>
+
+                <div class="project-grid">
+                    <article class="project-card" data-reveal>
+                        <div class="project-art art-monitoring" aria-hidden="true">
+                            <div class="mini-window monitor-window">
+                                <div class="mini-window-bar"><span>MONITOREO DIGITAL</span><span class="window-dots"><i></i><i></i><i></i></span></div>
+                                <div class="monitor-content">
+                                    <div class="monitor-sidebar"><b></b><b></b><b></b><b></b></div>
+                                    <div class="monitor-main">
+                                        <div class="monitor-heading"><span></span><b></b></div>
+                                        <div class="monitor-stats"><i></i><i></i><i></i></div>
+                                        <svg class="monitor-chart" viewBox="0 0 360 100" preserveAspectRatio="none"><path class="chart-fill" d="M0 78 C38 72 42 55 75 63 S119 83 149 52 S189 42 219 51 S264 25 294 38 S333 14 360 18 V100 H0Z"/><path class="chart-line" d="M0 78 C38 72 42 55 75 63 S119 83 149 52 S189 42 219 51 S264 25 294 38 S333 14 360 18"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="art-orbit art-orbit-a"></span><span class="art-orbit art-orbit-b"></span>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-topline"><span class="project-type">INTELIGENCIA DIGITAL</span><span class="project-status">Proyecto privado</span></div>
+                            <h3>MoniToreo</h3>
+                            <p>Plataforma local que reúne, clasifica y organiza información de distintas fuentes para su revisión analítica. Incluye panel operativo, acontecimientos y tendencias, programación de monitoreos y control por roles.</p>
+                            <div class="project-footer"><span>Monitoreo de medios <i>·</i> Análisis</span><span class="project-lock" aria-hidden="true"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><rect x="4" y="9" width="12" height="9" rx="2"/><path d="M7 9V6a3 3 0 0 1 6 0v3"/></svg></span></div>
+                        </div>
+                    </article>
+
+                    <article class="project-card" data-reveal>
+                        <div class="project-art art-classroom" aria-hidden="true">
+                            <div class="room-preview">
+                                <div class="room-title"><span>AULA VIRTUAL</span><span class="room-menu">•••</span></div>
+                                <div class="room-label">Elige tu equipo</div>
+                                <div class="room-groups">
+                                    <div class="room-group"><span class="avatar avatar-blue"></span><span class="avatar avatar-lilac"></span><b>Equipo 01</b><small>Espacio de trabajo</small></div>
+                                    <div class="room-group room-group-selected"><span class="avatar avatar-yellow"></span><span class="avatar avatar-green"></span><b>Equipo 02</b><small>Espacio de trabajo</small></div>
+                                    <div class="room-group"><span class="avatar avatar-pink"></span><span class="avatar avatar-sky"></span><b>Equipo 03</b><small>Espacio de trabajo</small></div>
+                                </div>
+                            </div>
+                            <span class="room-sparkle sparkle-one"></span><span class="room-sparkle sparkle-two"></span>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-topline"><span class="project-type">EDUCACIÓN DIGITAL</span><span class="project-status project-status-public">Repositorio público</span></div>
+                            <h3>Aula virtual JV</h3>
+                            <p>Aula web para organizar equipos por materia con perfiles, cupos, espacios visuales por tema, chat privado y archivos adjuntos. Incluye herramientas para que el docente gestione grupos e inscripciones.</p>
+                            <div class="project-footer"><span>JavaScript <i>·</i> Supabase</span><a class="project-link" href="https://github.com/Jotauve24/Aula-virtual-JV" target="_blank" rel="noopener noreferrer" aria-label="Explorar el repositorio de Aula virtual JV">
+                                Explorar código <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 15 15 5M6 5h9v9"/></svg>
+                            </a></div>
+                        </div>
+                    </article>
+
+                    <article class="project-card" data-reveal>
+                        <div class="project-art art-learning" aria-hidden="true">
+                            <div class="learning-preview">
+                                <div class="learning-top"><span>LABORATORIO DE INFORMÁTICA</span><span>01 / 06</span></div>
+                                <div class="learning-title">Aprender haciendo</div>
+                                <div class="learning-progress"><span></span></div>
+                                <div class="learning-units"><i class="unit-done"></i><i class="unit-done"></i><i></i><i></i><i></i><i></i></div>
+                                <div class="learning-foot"><span>Prácticas guiadas</span><span>Progreso guardado</span></div>
+                            </div>
+                            <div class="learning-orbit" aria-hidden="true"></div>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-topline"><span class="project-type">LABORATORIO EDUCATIVO</span><span class="project-status project-status-public">Repositorio público</span></div>
+                            <h3>ProyectoJv</h3>
+                            <p>Laboratorio interactivo de informática con seis unidades, prácticas guiadas, exploración visual de componentes y generación de evidencias PDF directamente en el navegador.</p>
+                            <div class="project-footer"><span>Aprendizaje práctico <i>·</i> Web</span><a class="project-link" href="https://github.com/Jotauve24/ProyectoJv" target="_blank" rel="noopener noreferrer" aria-label="Explorar el repositorio de ProyectoJv">
+                                Explorar código <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 15 15 5M6 5h9v9"/></svg>
+                            </a></div>
+                        </div>
+                    </article>
+
+                    <article class="project-card" data-reveal>
+                        <div class="project-art art-trazo" aria-hidden="true">
+                            <div class="pdf-preview">
+                                <div class="pdf-page"><span class="pdf-badge">PDF</span><i class="pdf-line pdf-line-wide"></i><i class="pdf-line"></i><i class="pdf-line pdf-line-short"></i><span class="signature-stroke">Jv</span><i class="pdf-sign-line"></i><small>Firma visual</small></div>
+                                <div class="pdf-tool"><span class="tool-pen"><svg viewBox="0 0 24 24" focusable="false"><path d="m4 16.5-.8 4.3 4.3-.8L20 7.5 16.5 4 4 16.5Z"/><path d="m14.8 5.7 3.5 3.5"/></svg></span><b>Coloca tu firma</b><span>Arrastra · Ajusta · Descarga</span></div>
+                            </div>
+
+                        </div>
+                        <div class="project-body">
+                            <div class="project-topline"><span class="project-type">HERRAMIENTA WEB</span><span class="project-status project-status-live">Disponible en línea</span></div>
+                            <h3>TrazoJV</h3>
+                            <p>Herramienta para dibujar, escribir o importar una firma visual, colocarla en un PDF y descargar el resultado. Procesa el documento localmente en el navegador; no crea una firma digital certificada.</p>
+                            <div class="project-footer"><span>Privacidad local <i>·</i> PDF</span><a class="project-link" href="https://jotauve24.github.io/trazo/" target="_blank" rel="noopener noreferrer" aria-label="Abrir la herramienta TrazoJV">
+                                Probar herramienta <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 15 15 5M6 5h9v9"/></svg>
+                            </a></div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="prototype-note" data-reveal>
+                    <div><span class="prototype-overline">EN EXPLORACIÓN</span><p>Otros prototipos que he creado:</p></div>
+                    <ul class="prototype-list" aria-label="Otros prototipos">
+                        <li>Mi Barra de Pendientes</li>
+                        <li>Teleprompter Inteligente</li>
+                        <li>TranscriPlus</li>
+                        <li>Exportador autorizado de WhatsApp</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section focus-section" id="enfoque" aria-labelledby="focus-title">
+            <div class="page-width">
+                <div class="section-heading" data-reveal>
+                    <p class="section-kicker"><span>03</span> ÁREAS DE ENFOQUE</p>
+                    <h2 id="focus-title">Un perfil que conecta<br><em>distintas disciplinas.</em></h2>
+                    <p class="section-intro">Áreas donde conecto análisis, creación digital y aprendizaje.</p>
+                </div>
+
+                <div class="focus-grid">
+                    <article class="focus-card" data-reveal>
+                        <span class="focus-index">01</span>
+                        <div class="focus-icon" aria-hidden="true"><svg viewBox="0 0 32 32" focusable="false"><circle cx="13.5" cy="13.5" r="7.5"/><path d="m19 19 7 7M10 13.5h7M13.5 10v7"/></svg></div>
+                        <h3>Inteligencia digital</h3>
+                        <p>Monitoreo de medios, lectura de conversaciones y análisis de narrativas en entornos digitales.</p>
+                        <span class="focus-detail">Fuentes · Patrones · Contexto</span>
+                    </article>
+                    <article class="focus-card" data-reveal>
+                        <span class="focus-index">02</span>
+                        <div class="focus-icon" aria-hidden="true"><svg viewBox="0 0 32 32" focusable="false"><path d="M5 25V7m0 18h23"/><path d="m9 20 5-6 4 3 7-9"/><circle cx="25" cy="8" r="2"/></svg></div>
+                        <h3>Datos y visualización</h3>
+                        <p>Identifico patrones, organizo hallazgos y comunico resultados de forma comprensible.</p>
+                        <span class="focus-detail">Análisis · Visualización · Redes</span>
+                    </article>
+                    <article class="focus-card" data-reveal>
+                        <span class="focus-index">03</span>
+                        <div class="focus-icon" aria-hidden="true"><svg viewBox="0 0 32 32" focusable="false"><path d="m12 10-6 6 6 6M20 10l6 6-6 6M18 7l-4 18"/></svg></div>
+                        <h3>Desarrollo web</h3>
+                        <p>Prototipo aplicaciones y experiencias web que responden a necesidades específicas.</p>
+                        <span class="focus-detail">Interfaces · Aplicaciones · APIs</span>
+                    </article>
+                    <article class="focus-card" data-reveal>
+                        <span class="focus-index">04</span>
+                        <div class="focus-icon" aria-hidden="true"><svg viewBox="0 0 32 32" focusable="false"><path d="M5 25h22M8 22V12l8-5 8 5v10M12 22v-6h8v6M4 12l12-7 12 7"/></svg></div>
+                        <h3>Educación tecnológica</h3>
+                        <p>Experiencias de aprendizaje digitales que ayudan a desarrollar competencias informáticas.</p>
+                        <span class="focus-detail">Docencia · Aprendizaje · Innovación</span>
+                    </article>
+                </div>
+
+
+            </div>
+        </section>
+
+        <section class="section tools-section" id="herramientas" aria-labelledby="tools-title">
+            <div class="page-width">
+                <div class="section-heading section-heading-row" data-reveal>
+                    <div>
+                        <p class="section-kicker"><span>04</span> ECOSISTEMA DIGITAL</p>
+                        <h2 id="tools-title">Herramientas al servicio<br><em>de buenas ideas.</em></h2>
+                    </div>
+                    <p class="section-intro">Elijo cada recurso según el reto: investigar, organizar, desarrollar, colaborar o publicar.</p>
+                </div>
+
+                <div class="ai-note" data-reveal>
+                    <span class="ai-note-mark" aria-hidden="true">✳</span>
+                    <p><strong>IA generativa, como apoyo puntual:</strong> la uso para explorar ideas y sintetizar información; cada resultado se revisa con criterio humano.</p>
+                </div>
+
+                <div class="tools-grid">
+                    <article class="tool-card" data-reveal>
+                        <div class="tool-card-top"><span class="tool-number">01</span><span class="tool-category">CÓDIGO Y COLABORACIÓN</span></div>
+                        <h3>GitHub</h3>
+                        <p>Repositorios, historial y documentación para colaborar, publicar sitios con GitHub Pages y automatizar tareas con Actions.</p>
+                        <a class="tool-link" href="https://github.com/Jotauve24" target="_blank" rel="noopener noreferrer">Ver mi perfil <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 15 15 5M6 5h9v9"/></svg></a>
+                    </article>
+                    <article class="tool-card" data-reveal>
+                        <div class="tool-card-top"><span class="tool-number">02</span><span class="tool-category">BACKEND Y DATOS</span></div>
+                        <h3>Supabase</h3>
+                        <p>Base de datos, autenticación y almacenamiento para aplicaciones conectadas; lo utilizo en Aula virtual JV.</p>
+                        <a class="tool-link" href="https://supabase.com/" target="_blank" rel="noopener noreferrer">Conocer Supabase <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 15 15 5M6 5h9v9"/></svg></a>
+                    </article>
+                    <article class="tool-card" data-reveal>
+                        <div class="tool-card-top"><span class="tool-number">03</span><span class="tool-category">PUBLICACIÓN WEB</span></div>
+                        <h3>Vercel</h3>
+                        <p>Despliegue de sitios y aplicaciones web, con vistas previas para revisar cambios antes de publicarlos.</p>
+                        <a class="tool-link" href="https://vercel.com/" target="_blank" rel="noopener noreferrer">Conocer Vercel <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 15 15 5M6 5h9v9"/></svg></a>
+                    </article>
+                    <article class="tool-card" data-reveal>
+                        <div class="tool-card-top"><span class="tool-number">04</span><span class="tool-category">IDEAS Y ORGANIZACIÓN</span></div>
+                        <h3>Notion</h3>
+                        <p>Organización de notas, documentación y seguimiento de proyectos para mantener el trabajo claro y conectado.</p>
+                        <a class="tool-link" href="https://www.notion.com/" target="_blank" rel="noopener noreferrer">Conocer Notion <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 15 15 5M6 5h9v9"/></svg></a>
+                    </article>
+                    <article class="tool-card tool-card-stack" data-reveal>
+                        <div class="tool-card-top"><span class="tool-number">05</span><span class="tool-category">DESARROLLO Y DATOS</span></div>
+                        <h3>Tecnologías y datos</h3>
+                        <p>Según el proyecto, trabajo con HTML, CSS, Python, Power BI, JavaScript, Node.js, SQLite, APIs y bases de datos.</p>
+                        <span class="tool-note">Datos · Automatización · Aplicaciones</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section" id="contacto" aria-labelledby="contact-title">
+            <div class="contact-glow" aria-hidden="true"></div>
+            <div class="contact-inner page-width" data-reveal>
+                <div class="contact-copy">
+                    <p class="contact-kicker"><span></span> SIGAMOS LA CONVERSACIÓN</p>
+                    <h2 id="contact-title">Las buenas ideas<br><em>empiezan hablando.</em></h2>
+                    <p>¿Tienes un reto relacionado con educación, datos o tecnología? Me encantará conocerlo.</p>
+                </div>
+                <div class="contact-actions">
+                    <a class="button button-light" href="https://www.linkedin.com/in/jair-valdes-5213731a9/" target="_blank" rel="noopener noreferrer">
+                        Conectar en LinkedIn
+                        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 15 15 5M6 5h9v9"/></svg>
+                    </a>
+                    <a class="contact-github" href="#proyectos">
+                        Volver a los proyectos
+                        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11M10 5l5 5-5 5"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner page-width">
+            <a class="footer-brand" href="#inicio" aria-label="JOTAUVE, inicio">JOTAU<span>VE</span><i>.</i></a>
+            <p>© <span id="current-year">2026</span> Jair Antonio Valdes Tejeira <span aria-hidden="true">·</span> Panamá</p>
         </div>
+    </footer>
 
-        <a href="#perfil" class="scroll">↓</a>
-    </section>
-
-<section id="perfil" class="seccion perfil">
-    <div class="perfil-contenedor">
-
-        <div class="perfil-informacion">
-            <span class="perfil-etiqueta">PERFIL PROFESIONAL</span>
-
-            <h2>Conoce un poco más sobre Mi Perfil</h2>
-
-            <div class="perfil-linea"></div>
-
-            <p class="perfil-descripcion">
-                Soy un profesional apasionado por la informática, la tecnología y la transformación digital. Mi experiencia integra la docencia, el análisis de información y el desarrollo de soluciones tecnológicas orientadas a optimizar procesos y fortalecer el aprendizaje.
-            </p>
-
-            <p class="perfil-descripcion">
-                Me caracterizo por mantener una formación continua, incorporar herramientas innovadoras y aplicar buenas prácticas que generan valor tanto en el ámbito educativo como en proyectos tecnológicos.
-            </p>
-
-            <div class="perfil-frase">
-                <span class="comillas">“</span>
-
-                <p>
-                    La tecnología adquiere verdadero valor cuando se utiliza
-                    para educar, innovar y transformar positivamente la vida
-                    de las personas.
-                </p>
-            </div>
-        </div>
-
-        <div class="perfil-visual">
-            <div class="perfil-foto">
-                <img src="img/perfil.png" alt="Jair Antonio Valdes Tejeira">
-            </div>
-
-            <div class="perfil-identidad">
-                <h3>Jair Antonio Valdes Tejeira</h3>
-                <p>Docente de Informática</p>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="perfil-fortalezas">
-
-        <article class="fortaleza">
-            <div class="fortaleza-icono">🎓</div>
-            <div>
-                <h3>Docencia</h3>
-                <p>
-                    Formación y acompañamiento en el desarrollo de competencias
-                    informáticas y digitales.
-                </p>
-            </div>
-        </article>
-
-        <article class="fortaleza">
-            <div class="fortaleza-icono">&lt;/&gt;</div>
-            <div>
-                <h3>Tecnología</h3>
-                <p>
-                    Aplicación de herramientas digitales para crear soluciones
-                    y optimizar procesos.
-                </p>
-            </div>
-        </article>
-
-        <article class="fortaleza">
-            <div class="fortaleza-icono">◎</div>
-            <div>
-                <h3>Innovación</h3>
-                <p>
-                    Aprendizaje continuo y exploración de nuevas tecnologías
-                    aplicadas a la educación.
-                </p>
-            </div>
-        </article>
-
-        <article class="fortaleza">
-            <div class="fortaleza-icono">▥</div>
-            <div>
-                <h3>Análisis</h3>
-                <p>
-                    Organización e interpretación de información para apoyar
-                    decisiones y generar conocimiento.
-                </p>
-            </div>
-        </article>
-
-    </div>
-
-    <div class="perfil-proposito">
-        <span class="comillas-proposito">“</span>
-
-        <p>
-            Mi propósito es combinar educación, tecnología e innovación para
-            crear experiencias de aprendizaje y soluciones que generen un
-            impacto positivo.
-        </p>
-
-        <div class="valores">
-            <span>Pasión</span>
-            <span>Innovación</span>
-            <span>Compromiso</span>
-            <span>Aprendizaje continuo</span>
-        </div>
-    </div>
-</section>
-
-<section id="especificaciones" class="seccion especificaciones">
-    <div class="encabezado-especificaciones">
-        <span class="etiqueta-especificaciones">ESPECIFICACIONES</span>
-
-        <h2>Áreas de experiencia</h2>
-
-        <div class="linea-brillante"></div>
-
-        <p>
-            Conocimientos y habilidades que aplico para crear soluciones,
-            mejorar procesos y aportar valor a través de la tecnología.
-        </p>
-    </div>
-
-    <div class="grid-especificaciones">
-
-        <article class="card-especificacion">
-            <div class="icono-box">&lt;/&gt;</div>
-
-            <h3>Desarrollo Web</h3>
-
-            <div class="linea-card"></div>
-
-            <p>
-                Diseño y desarrollo de sitios web modernos, responsivos e
-                interactivos utilizando HTML, CSS y JavaScript.
-            </p>
-
-            <a href="#" class="flecha-card">→</a>
-        </article>
-
-        <article class="card-especificacion">
-            <div class="icono-box">AI</div>
-
-            <h3>Inteligencia Artificial</h3>
-
-            <div class="linea-card"></div>
-
-            <p>
-                Aplicación de herramientas de inteligencia artificial para
-                automatizar procesos, analizar datos y generar soluciones innovadoras.
-            </p>
-
-            <a href="#" class="flecha-card">→</a>
-        </article>
-
-        <article class="card-especificacion">
-            <div class="icono-box">▥</div>
-
-            <h3>Análisis de Datos</h3>
-
-            <div class="linea-card"></div>
-
-            <p>
-                Procesamiento, análisis y visualización de información para apoyar
-                la interpretación y la toma de decisiones.
-            </p>
-
-            <a href="#" class="flecha-card">→</a>
-        </article>
-
-        <article class="card-especificacion">
-            <div class="icono-box">▣</div>
-
-            <h3>Desarrollo de Software</h3>
-
-            <div class="linea-card"></div>
-
-            <p>
-                Creación de aplicaciones y sistemas orientados a mejorar procesos
-                y aumentar la eficiencia.
-            </p>
-
-            <a href="#" class="flecha-card">→</a>
-        </article>
-
-        <article class="card-especificacion">
-            <div class="icono-box">☁</div>
-
-            <h3>Transformación Digital</h3>
-
-            <div class="linea-card"></div>
-
-            <p>
-                Implementación de herramientas y tecnologías que impulsan la
-                innovación, la productividad y la colaboración.
-            </p>
-
-            <a href="#" class="flecha-card">→</a>
-        </article>
-
-        <article class="card-especificacion">
-            <div class="icono-box">⌂</div>
-
-            <h3>Docencia en Informática</h3>
-
-            <div class="linea-card"></div>
-
-            <p>
-                Diseño de experiencias de aprendizaje apoyadas en tecnologías
-                digitales para desarrollar competencias informáticas.
-            </p>
-
-            <a href="#" class="flecha-card">→</a>
-        </article>
-
-    </div>
-</section>
-
-    <section id="recursos" class="seccion">
-        <h2>Recursos</h2>
-        <p>
-            Espacio para compartir materiales, herramientas y recursos digitales.
-        </p>
-    </section>
+    <a class="back-to-top" href="#inicio" aria-label="Volver al inicio">
+        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M10 16V4m-5 5 5-5 5 5"/></svg>
+    </a>
 
     <script src="js/script.js"></script>
 </body>
