@@ -2623,3 +2623,7 @@ html:not(.js-project-filters) .project-filters { display: none; }
     .project-filters { width: 100%; gap: 7px; }
     .project-filter { padding-inline: 12px; font-size: 11px; }
 }
+
+@media (max-width: 760px) {
+    .back-to-top { display: none; }
+}
